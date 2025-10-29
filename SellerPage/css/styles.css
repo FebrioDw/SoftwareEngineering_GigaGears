@@ -1,0 +1,248 @@
+/* ====== GigaGears UI – Global ====== */
+:root{
+  --gg-primary:#0a58ff;
+  --gg-primary-600:#0a55f2;
+  --gg-primary-700:#0a46cc;
+  --gg-ink:#0f1a3a;
+  --gg-muted:#6b7280;
+  --gg-card:#ffffff;
+  --gg-soft:#eef4ff;
+  --gg-radius:16px;
+}
+
+html,body{height:100%}
+body{
+  font-family:"Chakra Petch", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(1100px 500px at 85% -10%, rgba(91,140,255,.25), transparent 60%),
+    linear-gradient(180deg,#f3f7ff 0%, #ffffff 46%, #f7fbff 100%);
+  color:var(--gg-ink);
+}
+
+.fw-black{font-weight:900!important}
+.text-muted-gg{color:var(--gg-muted)!important}
+
+.container-fluid{min-height:100%}
+
+/* ====== Sidebar (konsisten di semua page) ====== */
+.side{
+  background:#fff;
+  border-right:1px solid rgba(10,88,255,.08);
+  min-height:100vh;
+  position:sticky; top:0;
+  padding:20px 16px;
+}
+.brand-link{display:inline-flex; align-items:center; gap:.5rem; text-decoration:none; margin-bottom:8px}
+.brand-logo{height:28px; width:auto; display:block}
+@media (min-width:992px){ .brand-logo{height:32px} }
+
+.nav-gg{gap:.5rem}
+.side .nav-gg .nav-link,
+.side .nav-gg .nav-link:hover,
+.side .nav-gg .nav-link:focus,
+.side .nav-gg .nav-link.active{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  padding:12px 16px !important;
+  border-radius:16px !important;
+  line-height:1 !important;
+  border:2px solid transparent !important;
+  font-weight:600 !important;
+  text-decoration:none !important;
+  color:var(--gg-ink) !important;
+  background:transparent !important;
+  transition:background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.side .nav-gg .nav-link .bi{
+  display:inline-block !important;
+  width:22px !important; min-width:22px !important;
+  text-align:center !important; font-size:18px !important; line-height:1 !important;
+}
+.side .nav-gg .nav-link:hover{
+  color:var(--gg-primary) !important;
+  background:rgba(10,88,255,.08) !important;
+  border-color:rgba(10,88,255,.25) !important;
+}
+.side .nav-gg .nav-link.active{
+  color:var(--gg-primary) !important;
+  background:rgba(10,88,255,.12) !important;
+  border-color:rgba(10,88,255,.40) !important;
+  box-shadow:0 0 0 4px rgba(10,88,255,.10) !important;
+}
+.side hr{margin:.75rem 0 1rem; opacity:.15}
+
+/* ====== App bar (header biru gradasi penuh) ====== */
+.appbar{
+  background:
+    radial-gradient(900px 360px at 80% 0, rgba(255,255,255,.08), transparent 60%),
+    linear-gradient(90deg,#1560ff 0%, #0c39d9 45%, #2c7ae6 68%, #87e6ff 100%);
+  color:#fff;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:
+    0 18px 40px rgba(19,41,104,.16),
+    inset 0 1px 0 rgba(255,255,255,.25);
+}
+.appbar .wc-title{font-size:28px; letter-spacing:.5px}
+
+/* Badge profile/notify */
+.badge-chip{
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.35);
+  color:#fff;
+  padding:6px 10px;
+  border-radius:12px;
+}
+
+/* ====== Cards/containers ====== */
+.gg-card{
+  background:var(--gg-card);
+  border:1px solid rgba(10,88,255,.08);
+  border-radius:16px;
+  box-shadow:0 10px 26px rgba(24,42,117,.08);
+}
+
+/* KPI small cards */
+.kpi{
+  display:flex; align-items:start; gap:12px;
+  background:#fff; border:1px solid rgba(10,88,255,.08); border-radius:14px; padding:14px 16px;
+}
+
+/* Table tweaks */
+.table.gg-table thead th{color:#6a7693; font-weight:600}
+.table.gg-table td, .table.gg-table th{vertical-align:middle}
+
+/* Footer */
+.foot{color:#93a0c0;}
+
+/* Make sure main content has spacing similar across pages */
+.main-wrap{padding:18px}
+@media (min-width:992px){ .main-wrap{padding:28px} }
+
+/* ===== Orders Table (style seperti screenshot) ===== */
+.orders .table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.orders .table thead th{
+  background:#0a58ff !important;      /* biru header */
+  color:#fff !important;
+  border-color:#0a58ff !important;
+  font-weight:700;
+  vertical-align:middle;
+}
+
+.orders .table thead th:first-child{
+  border-top-left-radius:10px;
+}
+.orders .table thead th:last-child{
+  border-top-right-radius:10px;
+}
+
+.orders .table tbody td{
+  padding:14px 12px;
+  vertical-align:middle;
+  border-color:#eef2ff;
+  white-space:nowrap;
+}
+.orders .table tbody tr:last-child td{
+  border-bottom:0;
+}
+
+/* Status warna tipis (teks berwarna, tanpa chip) */
+.badge-status{
+  font-weight:600;
+  letter-spacing:.2px;
+}
+.badge-status.pending{ color:#f58a00; }     /* oranye */
+.badge-status.completed{ color:#1aa34a; }  /* hijau */
+.badge-status.cancelled{ color:#d23b3b; }  /* merah */
+
+/* QTY kolom sempit */
+.orders .col-qty{ width:60px; }
+
+/* Tombol update kecil */
+.btn-update{
+  background:#0a58ff;
+  color:#fff;
+  border:0;
+  padding:4px 12px;
+  font-weight:700;
+  border-radius:999px;
+  line-height:1.1;
+}
+.btn-update:hover{ filter:brightness(.95); color:#fff; }
+
+/* Tombol icon kecil bundar */
+.btn-icon{
+  width:30px; height:30px;
+  border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  border:1px solid #d8e4ff;
+  background:#eef4ff;
+  color:#0a58ff;
+}
+.btn-icon:hover{ background:#e4eeff; color:#0a58ff; }
+
+/* Teks tanggal 2 baris kecil */
+.orders .subdate{
+  display:block;
+  font-size:12px;
+  color:#6b7280;
+  line-height:1.1;
+  white-space:normal;
+}
+
+/* ===== Sidebar CONSISTENCY FIX ===== */
+.side { /* kalau mau benar2 fix, opsional */
+  max-width: 300px;      /* biar stabil di semua halaman */
+}
+
+.nav-gg .nav-link{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  height:56px;           /* tinggi tetap */
+  padding:0 16px;        /* kiri/kanan tetap */
+  border-radius:16px;
+  font-weight:600;
+  border:2px solid transparent; /* penting: ukuran sama dgn/tnp active */
+  transition: background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+.nav-gg .nav-link .bi{
+  font-size:18px;
+  width:22px;            /* lebar ikon fix agar label tidak geser */
+  min-width:22px;
+}
+
+/* state hover (opsional) */
+.nav-gg .nav-link:hover{
+  background:#eaf2ff;
+}
+
+/* state active menyerupai contoh kamu: pill biru muda + outline biru */
+.nav-gg .nav-link.active{
+  background:#eaf2ff;              /* isi pill */
+  border-color:#bcd4ff;            /* outline samar */
+  box-shadow:0 0 0 3px rgba(49,111,255,.15) inset; /* glow tipis */
+  color:#0a58ff;
+}
+
+/* Pastikan warna ikon mengikuti teks */
+.nav-gg .nav-link.active .bi{
+  color:#0a58ff;
+}
+
+/* Tombol Log Out tetap stabil */
+.btn-logout{
+  display:flex; align-items:center; justify-content:center;
+  height:46px; border-radius:12px;
+}
+
+@media (min-width: 992px){
+  .side { width: 300px; }
+  main.col-lg-10 { width: calc(100% - 300px); }
+}
