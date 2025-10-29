@@ -246,3 +246,44 @@ body{
   .side { width: 300px; }
   main.col-lg-10 { width: calc(100% - 300px); }
 }
+
+/* ===== Status pill (dipakai di dashboard & order) ===== */
+.badge-status{
+  display:inline-block;
+  padding:.28rem .6rem;
+  border-radius:.5rem;
+  font-weight:700;
+  line-height:1;
+  border:1.5px solid #d7e3ff;     /* garis abu kebiruan */
+  background:#f7fbff;              /* dasar terang agar selalu terlihat */
+  color:#0b2e61;                    /* teks default SELALU terlihat */
+  font-size:.86rem;
+  white-space:nowrap;
+}
+
+/* Variants */
+.badge-status.pending{
+  background:#fff6e0;
+  border-color:#ffd89c;
+  color:#9a6400;
+}
+.badge-status.processing{
+  background:#e9f6ff;
+  border-color:#bfe6ff;
+  color:#075985;
+}
+.badge-status.completed{
+  background:#eafff1;
+  border-color:#b9eccb;
+  color:#0e7a3a;
+}
+.badge-status.cancelled{
+  background:#ffecec;
+  border-color:#ffc0c0;
+  color:#b42318;
+}
+.badge-status.refunded{
+  background:#eef0f6;
+  border-color:#d7dbe7;
+  color:#3f4254;
+}

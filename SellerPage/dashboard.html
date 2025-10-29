@@ -53,7 +53,10 @@
           </div>
           <div class="d-flex gap-2">
             <span class="badge-chip d-inline-flex align-items-center gap-2"><i class="bi bi-bell"></i></span>
-            <span class="badge-chip d-inline-flex align-items-center gap-2"><span class="rounded-circle bg-white text-primary fw-bold d-inline-flex align-items-center justify-content-center" style="width:28px;height:28px">TW</span> Profil</span>
+            <span class="badge-chip d-inline-flex align-items-center gap-2">
+              <span class="rounded-circle bg-white text-primary fw-bold d-inline-flex align-items-center justify-content-center" style="width:28px;height:28px">TW</span>
+              Profil
+            </span>
           </div>
         </div>
 
@@ -94,22 +97,51 @@
                 <button class="btn btn-sm btn-outline-secondary">This Year</button>
               </div>
               <div class="text-muted-gg">Hubungkan ke backend/Chart.js untuk grafik dinamis.</div>
-              <div class="mt-4" style="height:300px;background:linear-gradient(180deg,#f7faff,#fff);border:1px dashed #e1e7f8;border-radius:12px" class="d-flex align-items-center justify-content-center"></div>
+              <div class="mt-4" style="height:300px;background:linear-gradient(180deg,#f7faff,#fff);border:1px dashed #e1e7f8;border-radius:12px"></div>
             </section>
           </div>
+
           <div class="col-12 col-xl-4">
             <section class="gg-card p-3 p-md-4">
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <h5 class="mb-0">Recent Order</h5>
                 <a href="#" class="small text-decoration-none">Full Detail</a>
               </div>
+
               <div class="table-responsive">
                 <table class="table gg-table mb-0">
-                  <thead><tr><th>Order ID</th><th>Product</th><th>Customer</th><th>Status</th><th>Total</th></tr></thead>
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Product</th>
+                      <th>Customer</th>
+                      <th>Status</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
                   <tbody>
-                    <tr><td>#10231</td><td>Logitech G Pro X</td><td>John Doe</td><td><span class="badge text-bg-success-subtle border border-success-subtle">Completed</span></td><td>$99</td></tr>
-                    <tr><td>#10230</td><td>Logitech G Pro X</td><td>John Doe</td><td><span class="badge text-bg-success-subtle border border-success-subtle">Completed</span></td><td>$99</td></tr>
-                    <tr><td>#10229</td><td>Logitech G Pro X</td><td>John Doe</td><td><span class="badge text-bg-success-subtle border border-success-subtle">Completed</span></td><td>$99</td></tr>
+                    <tr>
+                      <td>#10231</td>
+                      <td>Logitech G Pro X</td>
+                      <td>John Doe</td>
+                      <!-- gunakan komponen status yang konsisten -->
+                      <td><span class="badge-status completed">Completed</span></td>
+                      <td>$99</td>
+                    </tr>
+                    <tr>
+                      <td>#10230</td>
+                      <td>Logitech G Pro X</td>
+                      <td>John Doe</td>
+                      <td><span class="badge-status completed">Completed</span></td>
+                      <td>$99</td>
+                    </tr>
+                    <tr>
+                      <td>#10229</td>
+                      <td>Logitech G Pro X</td>
+                      <td>John Doe</td>
+                      <td><span class="badge-status completed">Completed</span></td>
+                      <td>$99</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
