@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GigaGears — Inbox</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row g-0">
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="col-12 col-lg-2 side d-none d-lg-block">
+      <a href="dashboard.html" class="brand-link" aria-label="GigaGears">
+        <img src="../assets/gigagears-logo.png" alt="GigaGears" class="brand-logo">
+      </a>
+
+      <nav class="nav flex-column nav-gg">
+        <a class="nav-link" href="dashboard.html"><i class="bi bi-grid-1x2"></i>Dashboard</a>
+        <a class="nav-link" href="order.html"><i class="bi bi-bag"></i>Order</a>
+        <a class="nav-link" href="product.html"><i class="bi bi-box"></i>Products</a>
+        <a class="nav-link" href="balance.html"><i class="bi bi-wallet2"></i>Balance & Withdraw</a>
+        <a class="nav-link" href="analytics.html"><i class="bi bi-bar-chart"></i>Analytics & Report</a>
+        <a class="nav-link active" href="inbox.html"><i class="bi bi-inbox"></i>Inbox</a>
+        <hr>
+        <a class="nav-link" href="settings.html"><i class="bi bi-gear"></i>Settings</a>
+      </nav>
+
+      <div class="mt-4">
+        <button class="btn btn-outline-danger w-100"><i class="bi bi-box-arrow-right me-1"></i> Log Out</button>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <main class="col-12 col-lg-10 main-wrap">
+      <!-- App Bar -->
+      <div class="appbar px-3 px-md-4 py-3 mb-4 d-flex align-items-center justify-content-between">
+        <div>
+          <div class="small opacity-75 mb-1">See feedback and messages</div>
+          <h1 class="wc-title mb-0">Inbox</h1>
+        </div>
+        <div class="d-flex gap-2">
+          <span class="badge-chip d-inline-flex align-items-center gap-2"><i class="bi bi-bell"></i></span>
+          <span class="badge-chip d-inline-flex align-items-center gap-2">
+            <span class="rounded-circle bg-white text-primary fw-bold d-inline-flex align-items-center justify-content-center" style="width:28px;height:28px">TW</span>
+            Profil
+          </span>
+        </div>
+      </div>
+
+      <!-- Search + Filter -->
+      <section class="gg-card p-3 p-md-4 mb-3">
+        <div class="row g-2 align-items-center">
+          <div class="col-12 col-md">
+            <div class="input-group">
+              <span class="input-group-text bg-transparent"><i class="bi bi-search"></i></span>
+              <input id="inboxSearch" type="text" class="form-control" placeholder="Search by customer, product, message…">
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-3">
+            <select id="inboxFilter" class="form-select">
+              <option value="all">All Review & Message</option>
+              <option value="review">Only Review</option>
+              <option value="message">Only Message</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Table -->
+      <section class="gg-card p-0 mb-3">
+        <div class="d-flex align-items-center justify-content-between px-3 px-md-4 py-3 border-bottom">
+          <h5 class="mb-0">Customer Feedback</h5>
+          <small class="text-muted"><span id="tbl-count">0</span> items</small>
+        </div>
+        <div class="table-responsive">
+          <table class="table mb-0 align-middle">
+            <thead>
+              <tr>
+                <th style="width:160px">Customer</th>
+                <th style="width:220px">Product</th>
+                <th style="width:110px">Rating</th>
+                <th>Review/Message</th>
+                <th style="width:150px">Date</th>
+                <th style="width:120px" class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="inboxBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Message List -->
+      <section class="gg-card p-3 p-md-4">
+        <h5 class="mb-3">Inbox Message</h5>
+        <div id="msgList" class="d-flex flex-column gap-2"></div>
+      </section>
+
+      <p class="text-center mt-4 foot small mb-0">© 2025 GigaGears. All rights reserved.</p>
+    </main>
+  </div>
+</div>
+
+<!-- Reply Modal -->
+<div class="modal fade" id="replyModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Reply to <span id="rp-customer">—</span></h5>
+        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-2 small text-muted">
+          Context: <span id="rp-product">—</span> — <span id="rp-type" class="badge bg-secondary">review</span>
+        </div>
+        <div class="p-3 rounded-3 bg-light mb-3" id="rp-original" style="white-space:pre-wrap"></div>
+        <textarea id="rp-text" class="form-control" rows="5" placeholder="Tulis balasan yang sopan & solutif…"></textarea>
+        <div class="form-check mt-3">
+          <input class="form-check-input" type="checkbox" id="rp-priv" checked>
+          <label class="form-check-label" for="rp-priv">Kirim sebagai pesan privat (jika review publik, balasan ringkas tetap diposting)</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="rp-send" class="btn btn-primary"><i class="bi bi-send me-1"></i>Kirim</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Page Script -->
+<script>
+(() => {
+  // Dummy data
+  const items = [
+    {id:'rv-1001', type:'review', customer:'John Doe', product:'Logitech G Pro X', rating:5, message:'The headset is perfect, mic is crystal clear.', date:'2025-09-25 10:20'},
+    {id:'rv-1002', type:'review', customer:'John Doe', product:'Logitech G Pro X', rating:4, message:'Great soundstage, wish cable was longer.', date:'2025-09-25 10:10'},
+    {id:'msg-2001', type:'message', customer:'Kevin T', product:'—', rating:null, message:'Hi, apakah garansinya resmi 2 tahun?', date:'2025-09-25 10:22'},
+    {id:'msg-2002', type:'message', customer:'Amelia W', product:'Adobe CC License', rating:null, message:'Kode lisensi saya belum aktif, mohon bantuannya.', date:'2025-09-24 16:05'},
+    {id:'rv-1003', type:'review', customer:'Rama P', product:'Logitech G Pro X', rating:3, message:'Barang oke tapi pengiriman agak lama.', date:'2025-09-24 12:33'},
+  ];
+
+  const $ = s => document.querySelector(s);
+  const body = $('#inboxBody');
+  const msgList = $('#msgList');
+
+  function stars(n){
+    if(n == null) return '<span class="text-muted">—</span>';
+    return '<span class="text-warning">' + '★'.repeat(n) + '</span><span class="text-muted">' + '★'.repeat(5-n) + '</span>';
+  }
+  function fmtDate(dt){
+    const [d,t] = dt.split(' ');
+    return `<span class="subdate">${d}</span><span class="subdate">${t}</span>`;
+  }
+
+  // Render table
+  function renderTable(data){
+    body.innerHTML = data.map(it => `
+      <tr>
+        <td>${it.customer}</td>
+        <td>${it.product}</td>
+        <td>${stars(it.rating)}</td>
+        <td>${it.message}</td>
+        <td>${fmtDate(it.date)}</td>
+        <td class="text-end">
+          <button
+            class="btn btn-primary btn-sm btn-reply"
+            data-bs-toggle="modal" data-bs-target="#replyModal"
+            data-id="${it.id}" data-customer="${it.customer}"
+            data-type="${it.type}" data-product="${it.product}"
+            data-msg="${it.message.replaceAll('"','&quot;')}"
+          >Reply</button>
+        </td>
+      </tr>
+    `).join('');
+    $('#tbl-count').textContent = data.length;
+  }
+
+  // Render message list (only messages)
+  function renderMsgList(data){
+    msgList.innerHTML = data
+      .filter(it => it.type === 'message')
+      .map(it => `
+        <div class="d-flex align-items-start gap-3 p-2 rounded-3 border">
+          <div class="rounded-circle bg-secondary-subtle d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px">
+            <i class="bi bi-person"></i>
+          </div>
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between">
+              <strong>${it.customer}</strong>
+              <small class="text-muted">${it.date.split(' ')[1]}</small>
+            </div>
+            <div class="text-muted small">${it.message}</div>
+          </div>
+        </div>
+      `).join('');
+  }
+
+  // Search + filter
+  function applyFilter(){
+    const q = $('#inboxSearch').value.trim().toLowerCase();
+    const f = $('#inboxFilter').value; // all/review/message
+    const filtered = items.filter(it => {
+      const okType = f === 'all' ? true : it.type === f;
+      const hay = (it.customer + ' ' + it.product + ' ' + it.message).toLowerCase();
+      const okSearch = q === '' ? true : hay.includes(q);
+      return okType && okSearch;
+    });
+    renderTable(filtered);
+  }
+
+  // Listeners
+  $('#inboxSearch').addEventListener('input', applyFilter);
+  $('#inboxFilter').addEventListener('change', applyFilter);
+
+  // Initial render
+  renderTable(items);
+  renderMsgList(items);
+
+  // Reply modal population
+  document.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.btn-reply');
+    if(!btn) return;
+    $('#rp-customer').textContent = btn.dataset.customer;
+    $('#rp-product').textContent  = btn.dataset.product;
+    $('#rp-type').textContent     = btn.dataset.type;
+    $('#rp-type').className = 'badge ' + (btn.dataset.type === 'review' ? 'bg-info text-dark' : 'bg-secondary');
+    $('#rp-original').textContent = btn.dataset.msg || '—';
+    $('#rp-text').value = '';
+    $('#rp-send').dataset.id = btn.dataset.id;
+  });
+
+  // Send reply (simulation)
+  $('#rp-send').addEventListener('click', ()=>{
+    const msg = $('#rp-text').value.trim();
+    if(!msg){ alert('Tulis balasan terlebih dahulu.'); return; }
+    const priv = $('#rp-priv').checked;
+    // Di produksi: kirim ke API di sini…
+    alert(`✅ Balasan terkirim (${priv ? 'private' : 'public'}).`);
+    const modal = bootstrap.Modal.getInstance(document.getElementById('replyModal'));
+    modal?.hide();
+  });
+})();
+</script>
+</body>
+</html>

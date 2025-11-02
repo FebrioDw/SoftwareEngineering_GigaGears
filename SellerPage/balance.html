@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GigaGears — Balance & Withdraw</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row g-0">
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="col-12 col-lg-2 side d-none d-lg-block">
+      <a href="dashboard.html" class="brand-link" aria-label="GigaGears">
+        <img src="../assets/gigagears-logo.png" alt="GigaGears" class="brand-logo">
+      </a>
+
+      <nav class="nav flex-column nav-gg">
+        <a class="nav-link" href="dashboard.html"><i class="bi bi-grid-1x2"></i>Dashboard</a>
+        <a class="nav-link" href="order.html"><i class="bi bi-bag"></i>Order</a>
+        <a class="nav-link" href="product.html"><i class="bi bi-box"></i>Products</a>
+        <a class="nav-link active" href="balance.html"><i class="bi bi-wallet2"></i>Balance & Withdraw</a>
+        <a class="nav-link" href="analytics.html"><i class="bi bi-bar-chart"></i>Analytics & Report</a>
+        <a class="nav-link" href="inbox.html"><i class="bi bi-inbox"></i>Inbox</a>
+        <hr>
+        <a class="nav-link" href="settings.html"><i class="bi bi-gear"></i>Settings</a>
+      </nav>
+
+      <div class="mt-4">
+        <button class="btn btn-outline-danger w-100"><i class="bi bi-box-arrow-right me-1"></i> Log Out</button>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <main class="col-12 col-lg-10 main-wrap">
+
+      <!-- App Bar -->
+      <div class="appbar px-3 px-md-4 py-3 mb-4 d-flex align-items-center justify-content-between">
+        <div>
+          <div class="small opacity-75 mb-1">Balance</div>
+          <h1 class="wc-title mb-0">My Balance</h1>
+        </div>
+        <div class="d-flex gap-2">
+          <span class="badge-chip d-inline-flex align-items-center gap-2"><i class="bi bi-bell"></i></span>
+          <span class="badge-chip d-inline-flex align-items-center gap-2">
+            <span class="rounded-circle bg-white text-primary fw-bold d-inline-flex align-items-center justify-content-center" style="width:28px;height:28px">TW</span>
+            Profil
+          </span>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="row g-3 mb-3">
+        <div class="col-12 col-md-4">
+          <div class="gg-card p-3 d-flex align-items-center gap-3">
+            <span class="rounded-3 bg-primary-subtle text-primary d-inline-flex align-items-center justify-content-center" style="width:40px;height:40px"><i class="bi bi-check2-circle"></i></span>
+            <div>
+              <div class="small text-muted-gg">Available Balance</div>
+              <div id="kpi-available" class="fs-3 fw-black">$2,430</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="gg-card p-3 d-flex align-items-center gap-3">
+            <span class="rounded-3 bg-warning-subtle text-warning d-inline-flex align-items-center justify-content-center" style="width:40px;height:40px"><i class="bi bi-hourglass-split"></i></span>
+            <div>
+              <div class="small text-muted-gg">Pending Balance</div>
+              <div id="kpi-pending" class="fs-3 fw-black">$520</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="gg-card p-3 d-flex align-items-center gap-3">
+            <span class="rounded-3 bg-success-subtle text-success d-inline-flex align-items-center justify-content-center" style="width:40px;height:40px"><i class="bi bi-piggy-bank"></i></span>
+            <div>
+              <div class="small text-muted-gg">Total Earnings</div>
+              <div id="kpi-earn" class="fs-3 fw-black">$12,340</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Withdraw Form -->
+      <section class="gg-card p-3 p-md-4 mb-3">
+        <h5 class="mb-3">Withdraw Form</h5>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-bank"></i></span>
+              <select id="wd-method" class="form-select">
+                <option>Bank Transfer (BCA)</option>
+                <option>Bank Transfer (Mandiri)</option>
+                <option>E-Wallet (ShopeePay)</option>
+                <option>E-Wallet (OVO)</option>
+                <option>E-Wallet (Dana)</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-credit-card-2-front"></i></span>
+              <input id="wd-account" type="text" class="form-control" placeholder="Account Number / E-Wallet Number">
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+              <input id="wd-name" type="text" class="form-control" placeholder="Account Name">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="input-group">
+              <span class="input-group-text">Rp</span>
+              <input id="wd-amount" type="number" min="0" step="1000" class="form-control" placeholder="Nominal (min 50.000)">
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="small text-muted">Minimum withdraw Rp50.000, proses 1–2 hari kerja.</div>
+          </div>
+          <div class="col-12">
+            <button id="btn-withdraw" class="btn btn-primary"><i class="bi bi-cash-coin me-1"></i>Withdraw Now</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- History -->
+      <section class="gg-card p-0">
+        <div class="d-flex align-items-center justify-content-between px-3 px-md-4 py-3 border-bottom">
+          <h5 class="mb-0">Withdraw History</h5>
+          <div class="small text-muted"><span id="hist-count">0</span> data found</div>
+        </div>
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead>
+              <tr>
+                <th style="width:160px">Withdraw ID</th>
+                <th style="width:120px">Amount</th>
+                <th>Method</th>
+                <th style="width:130px">Status</th>
+                <th style="width:170px">Date</th>
+              </tr>
+            </thead>
+            <tbody id="hist-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="text-center mt-4 foot small mb-0">© 2025 GigaGears. All rights reserved.</p>
+    </main>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Page Script (dummy simulation) -->
+<script>
+(() => {
+  // Dummy state
+  let available = 2430; // USD tampil; untuk withdraw kita minta rupiah -> hanya simulasi
+  let pending   = 520;
+  let earnings  = 12340;
+
+  const history = [
+    {id:'WD-20250901', amount:650, method:'Bank Transfer (BCA)', status:'Completed', date:'2025/09/25 · 10:20'},
+    {id:'WD-20250820', amount:480, method:'Bank Transfer (BCA)', status:'Completed', date:'2025/09/24 · 15:10'},
+    {id:'WD-20250815', amount:1250, method:'Bank Transfer (BCA)', status:'Completed', date:'2025/09/20 · 09:30'},
+  ];
+
+  // Helpers
+  const $ = (s)=>document.querySelector(s);
+  const fmtUsd = (n)=>'$' + Number(n).toLocaleString('en-US');
+  const fmtRp  = (n)=>'Rp' + Number(n).toLocaleString('id-ID');
+
+  // Render KPIs & history
+  function renderKpis(){
+    $('#kpi-available').textContent = fmtUsd(available);
+    $('#kpi-pending').textContent   = fmtUsd(pending);
+    $('#kpi-earn').textContent      = fmtUsd(earnings);
+  }
+  function renderHistory(){
+    const tbody = $('#hist-body');
+    tbody.innerHTML = history.map(h => `
+      <tr>
+        <td>${h.id}</td>
+        <td>${fmtUsd(h.amount)}</td>
+        <td>${h.method}</td>
+        <td>
+          <span class="badge ${h.status==='Completed'?'bg-success':'bg-warning text-dark'}">${h.status}</span>
+        </td>
+        <td>${h.date}</td>
+      </tr>
+    `).join('');
+    $('#hist-count').textContent = history.length;
+  }
+  renderKpis(); renderHistory();
+
+  // Withdraw button (simulation)
+  $('#btn-withdraw').addEventListener('click', () => {
+    const method = $('#wd-method').value.trim();
+    const acc    = $('#wd-account').value.trim();
+    const name   = $('#wd-name').value.trim();
+    const amtRp  = Number($('#wd-amount').value || 0);
+
+    if(!acc || !name){
+      alert('Lengkapi nomor & nama akun terlebih dahulu.');
+      return;
+    }
+    if(amtRp < 50000){
+      alert('Minimal withdraw Rp50.000.');
+      return;
+    }
+
+    // Simulasi: konversi kasar Rp -> USD supaya cocok dengan tampilan KPI (1 USD ≈ Rp15.000)
+    const estUsd = Math.max(1, Math.round(amtRp / 15000));
+    if(estUsd > available){
+      alert(`Saldo tidak cukup. Tersedia sekitar ${fmtUsd(available)} (≈ ${fmtRp(available*15000)}).`);
+      return;
+    }
+
+    // Update dummy state
+    available -= estUsd;
+    pending   += 0; // tidak diubah di simulasi
+    earnings  += 0;
+
+    const newId = 'WD-' + new Date().toISOString().slice(0,10).replaceAll('-','');
+    history.unshift({
+      id: newId,
+      amount: estUsd,
+      method: method,
+      status: 'Completed',
+      date: new Date().toISOString().replace('T',' · ').slice(0,16)
+    });
+
+    renderKpis(); renderHistory();
+    // Reset form
+    $('#wd-amount').value = '';
+    alert(`✅ Withdraw ${fmtRp(amtRp)} diproses (simulasi).`);
+  });
+})();
+</script>
+</body>
+</html>
