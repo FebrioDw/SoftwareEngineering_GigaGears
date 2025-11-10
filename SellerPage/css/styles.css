@@ -287,3 +287,232 @@ body{
   border-color:#d7dbe7;
   color:#3f4254;
 }
+
+/* ===============================
+   GIGAGEARS — Global UI Styles
+   Satu CSS untuk Seller + Admin
+   =============================== */
+
+/* --------- Variables --------- */
+:root{
+  /* brand colors */
+  --gg-primary:#0d5efd;
+  --gg-primary-2:#1557e0;
+  --gg-primary-3:#1a56e8;
+  --gg-accent:#35a5ff;
+  --gg-danger:#dc3545;
+  --gg-success:#14b85a;
+  --gg-warning:#f4b000;
+  --gg-info:#0dcaf0;
+
+  /* surfaces & text */
+  --gg-bg:#f7f9ff;
+  --gg-surface:#ffffff;
+  --gg-border:#e6ecfb;
+  --gg-text:#0b2149;
+  --gg-muted:#6c7a96;
+
+  /* charts (pie) */
+  --pie-1:#ff6b6b;
+  --pie-2:#4dabf7;
+  --pie-3:#ffd43b;
+  --pie-4:#51cf66;
+  --pie-5:#845ef7;
+
+  /* radii & shadows */
+  --gg-r:16px;
+  --gg-r-lg:18px;
+  --gg-shadow:0 8px 24px rgba(10,45,120,.08);
+  --gg-shadow-lg:0 14px 36px rgba(21,87,224,.18);
+}
+
+/* --------- Reset helpers --------- */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:"Chakra Petch",system-ui,Segoe UI,Arial,sans-serif;
+  background:var(--gg-bg);
+  color:var(--gg-text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+a{color:inherit}
+
+/* --------- Layout: sidebar + main --------- */
+.side{
+  background:var(--gg-surface);
+  min-height:100vh;
+  border-right:1px solid var(--gg-border);
+  padding:24px 16px;
+}
+
+.brand-link img{height:26px}
+
+/* Sidebar nav */
+.nav-gg .nav-link{
+  padding:.75rem .9rem;
+  border-radius:14px;
+  color:var(--gg-text);
+  display:flex; gap:.6rem; align-items:center;
+  border:1px solid transparent;
+  transition:all .15s ease;
+}
+.nav-gg .nav-link:hover{
+  background:#f0f6ff;
+  border-color:#e1ecff;
+}
+.nav-gg .nav-link.active{
+  background:#eaf2ff;
+  color:#0a52ff;
+  border-color:#cfe1ff;
+  box-shadow:0 0 0 3px rgba(48,118,255,.14) inset;
+}
+
+.main-wrap{ padding:24px; }
+
+/* Responsive fixed width for sidebar (agar tidak berubah) */
+@media (min-width: 992px){
+  .side{ width:300px; }
+  main.col-lg-10{ width: calc(100% - 300px); }
+}
+
+/* --------- App Bar (header gradient) --------- */
+.appbar{
+  background:
+    radial-gradient(1200px 420px at 80% 0%, rgba(255,255,255,.16) 0, transparent 55%),
+    linear-gradient(90deg, var(--gg-primary-3), var(--gg-primary), var(--gg-accent));
+  color:#fff;
+  border-radius:var(--gg-r-lg);
+  box-shadow:var(--gg-shadow-lg);
+}
+.wc-title{ font-weight:700; letter-spacing:.3px }
+
+/* Chip */
+.badge-chip{
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.28);
+  padding:.38rem .6rem;
+  border-radius:12px;
+}
+
+/* --------- Cards --------- */
+.gg-card{
+  background:var(--gg-surface);
+  border:1px solid var(--gg-border);
+  border-radius:var(--gg-r);
+  box-shadow:var(--gg-shadow);
+}
+
+/* KPI boxes (seller dashboard) */
+.kpi{
+  display:flex; gap:.8rem; align-items:center;
+  background:var(--gg-surface); border:1px solid var(--gg-border);
+  padding:.9rem; border-radius:14px; box-shadow:var(--gg-shadow);
+}
+.text-muted-gg{ color:var(--gg-muted) }
+.fw-black{ font-weight:800 }
+
+/* --------- Tables --------- */
+.table{ --bs-table-bg:transparent }
+.table>thead>tr>th{
+  background:var(--gg-primary);
+  color:#fff;
+  border-color:#0b53e4 !important;
+  font-weight:600;
+}
+.table-hover tbody tr:hover{ background:#f7fbff }
+.table td{ vertical-align:middle }
+
+/* Subdate (tanggal & jam mini) */
+.subdate{ display:block; line-height:1.1 }
+.subdate + .subdate{ color:var(--gg-muted) }
+
+/* Badge status (dipakai di seller & admin) */
+.badge-status{
+  padding:.35rem .55rem;
+  border-radius:999px;
+  font-weight:700;
+  font-size:.78rem;
+  border:1px solid transparent;
+  display:inline-block;
+}
+.badge-status.completed,
+.badge-status.active{
+  background:#e9f9ef; color:#199d4a; border-color:#c7f0d6;
+}
+.badge-status.pending{
+  background:#fff6e6; color:#b76b00; border-color:#ffe3b5;
+}
+.badge-status.processing{
+  background:#e9f6ff; color:#0b79b7; border-color:#cfeeff;
+}
+.badge-status.cancelled,
+.badge-status.suspended{
+  background:#fff1f1; color:#d0342c; border-color:#ffd7d7;
+}
+.badge-status.refunded{
+  background:#eef0f4; color:#5a6577; border-color:#e0e5ee;
+}
+
+/* Buttons */
+.btn{ border-radius:12px }
+.btn-icon{ width:38px; height:38px; padding:0; display:inline-flex;align-items:center;justify-content:center }
+
+/* Forms */
+.form-control, .form-select, .input-group-text{
+  border-radius:12px; border-color:#dfe6fb;
+}
+.form-control:focus, .form-select:focus{
+  border-color:#b6cdfc; box-shadow:0 0 0 .2rem rgba(13,110,253,.12);
+}
+
+/* --------- Gradient page headers (seller “TechnoWorld” dll) --------- */
+.wc-chip{
+  display:inline-flex; align-items:center; gap:.5rem;
+  background: linear-gradient(90deg,#1a56e8 0%, #1b49d6 40%, #35a5ff 100%);
+  color:#fff; border:1px solid rgba(255,255,255,.35);
+  padding:.45rem .8rem; border-radius:12px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 6px 14px rgba(22,72,224,.25);
+}
+.wc-chip--blue{ background: linear-gradient(90deg,#1b66ff 0%, #1648e0 45%, #7be2ff 100%) }
+
+/* Header band (bar biru panjang) */
+.appbar.appbar--band{
+  padding:18px 22px !important;
+  background: linear-gradient(110deg,#1b66ff 0%, #0e3ed8 50%, #86e9ff 100%);
+  border-radius:22px;
+}
+
+/* --------- Orders table custom (seller) --------- */
+.orders .col-qty{ width:70px; text-align:center }
+.orders .table td:nth-child(5){ text-align:center }
+
+/* --------- Modals --------- */
+.modal-content{ border-radius:14px; border:1px solid var(--gg-border) }
+.modal-header, .modal-footer{ background:#f8fbff }
+
+/* --------- Utilities --------- */
+.bg-primary-subtle{ background:#e8f0ff !important; color:var(--gg-primary) !important }
+.text-primary-gg{ color:var(--gg-primary) }
+.text-success-gg{ color:var(--gg-success) }
+.text-danger-gg{ color:var(--gg-danger) }
+.shadow-gg{ box-shadow:var(--gg-shadow) }
+
+/* --------- Charts (doughnut/pie fallback via CSS vars) --------- */
+.chart-pie .slice-1{ fill: var(--pie-1) }
+.chart-pie .slice-2{ fill: var(--pie-2) }
+.chart-pie .slice-3{ fill: var(--pie-3) }
+.chart-pie .slice-4{ fill: var(--pie-4) }
+.chart-pie .slice-5{ fill: var(--pie-5) }
+
+/* --------- Admin: toolbars & pagination --------- */
+.toolbar .form-control, .toolbar .form-select{ border-radius:12px }
+.pagination .page-link{ border-radius:10px }
+
+/* --------- Logout button --------- */
+.btn-outline-danger{ border-color:#ffb4bb; color:#cf1f2b }
+.btn-outline-danger:hover{ background:#ffe6e8; border-color:#ffb4bb }
+
+/* --------- Fix: badge yang “hilang” di background putih --------- */
+.badge, .badge-status{ -webkit-font-smoothing:auto; -moz-osx-font-smoothing:auto }
