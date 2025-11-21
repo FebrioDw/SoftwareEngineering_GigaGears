@@ -250,7 +250,7 @@ canvas{ background:transparent!important }
 .foot{ color:var(--gg-muted) }
 
 /* === Normalize admin sidebar spacing across pages === */
-.admin-side{ padding:24px 16px; background:#fff; border-right:1px solid var(--gg-border); }
+.admin-side{ padding:24px 16px; background:#fff; border-right:1px solid var(--gg-border);min-height: 100vh; }
 .nav-admin{ gap:8px; }                           /* vertical spacing between items */
 .nav-admin .nav-link{
   display:flex; align-items:center; gap:10px;
@@ -303,3 +303,69 @@ canvas{ background:transparent!important }
   display:block;
   margin-bottom:22px;             /* jarak brand ke menu */
 }
+
+/* --- Tambahan untuk Seller Page (Append ke paling bawah admin.css) --- */
+
+/* Tombol Export warna Oranye sesuai desain Figma */
+.btn-orange {
+  background-color: #FF8C00;
+  color: white;
+  border: 1px solid #E07B00;
+}
+.btn-orange:hover {
+  background-color: #E07B00;
+  color: white;
+}
+
+/* Style khusus untuk action buttons di tabel Seller */
+.btn-action-pill {
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+
+/* --- TAMBAHAN UNTUK DETAIL SELLER (MODAL & PAGE) --- */
+
+/* Wrapper untuk konten detail agar rapi di dalam modal */
+.detail-wrapper {
+  background: var(--gg-bg); /* Warna latar abu-abu muda */
+  padding: 20px;
+}
+
+/* Penyesuaian Header Card di dalam modal */
+.seller-header-card {
+  border-radius: 16px; overflow: hidden; position: relative;
+  background: var(--gg-card); border: 1px solid var(--gg-border); box-shadow: var(--gg-shadow);
+  margin-bottom: 24px;
+}
+.seller-banner {
+  height: 150px; /* Sedikit lebih pendek untuk modal */
+  background: linear-gradient(90deg, #1e293b 0%, #334155 100%); position: relative;
+}
+.seller-avatar-wrap {
+  position: absolute; bottom: -25px; left: 25px;
+  width: 90px; height: 90px; /* Sedikit lebih kecil */
+  border-radius: 50%; background: #fff; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.seller-avatar-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid var(--gg-primary-100); }
+.seller-info-header { padding-left: 135px; padding-top: 10px; padding-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-start; }
+
+/* Kartu Statistik */
+.stat-card-box {
+  background: #fff; border: 1px solid var(--gg-border); border-radius: 14px;
+  padding: 15px; text-align: center; height: 100%;
+}
+.stat-value { font-size: 1.75rem; font-weight: 800; color: var(--gg-primary); margin-bottom: 0; line-height: 1.2; }
+.stat-label { color: var(--gg-muted); font-size: 0.85rem; font-weight: 600; }
+
+/* Tabel Header Biru */
+.table-blue-head thead th { background-color: #0F6CBD !important; color: #fff !important; font-weight: 600; border: none; padding: 12px 14px; }
+.table-blue-head tbody td { padding: 12px 14px; border-bottom: 1px solid #eee; vertical-align: middle;}
+.table-blue-head tbody tr:last-child td { border-bottom: 0; }
+.table-blue-head thead th:first-child { border-top-left-radius: 10px; }
+.table-blue-head thead th:last-child { border-top-right-radius: 10px; }
+
+/* Info Bank Box */
+.bank-box { background: #F8FAFC; border-left: 4px solid var(--gg-primary); padding: 10px 12px; border-radius: 0 8px 8px 0; margin-top: 8px; }
