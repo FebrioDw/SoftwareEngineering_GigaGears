@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GigaGears Admin — Inbox</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/admin.css">
+
+  <style>
+    /* --- Global Table Style (Konsisten) --- */
+    .table-blue-head thead th {
+      background-color: #0D6EFD !important;
+      color: #fff !important;
+      font-weight: 600; border: 0; padding: 14px;
+    }
+    .table-blue-head thead th:first-child { border-top-left-radius: 8px; }
+    .table-blue-head thead th:last-child { border-top-right-radius: 8px; }
+    .table-blue-head tbody td {
+      padding: 14px; border-bottom: 1px solid #f1f5f9; vertical-align: middle;
+      color: var(--gg-body); font-weight: 500;
+    }
+    
+    /* --- Inbox Specific Styles --- */
+    /* Baris pesan yang belum dibaca (Tebal) */
+    tr.unread td {
+        font-weight: 700;
+        color: #000;
+        background-color: #F8FAFC;
+    }
+    tr.unread td .text-muted { color: #334155 !important; } /* Override muted color for unread */
+
+    /* Avatar kecil di tabel */
+    .table-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-right: 8px; }
+
+    /* Subject Link */
+    .subject-link { color: inherit; text-decoration: none; display: block; max-width: 350px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .subject-link:hover { color: #0D6EFD; text-decoration: underline; }
+
+    /* Modal Conversation Style */
+    .ticket-header { background: #F1F5F9; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+    .msg-bubble-container { display: flex; gap: 16px; margin-bottom: 24px; }
+    .msg-avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
+    .msg-content { flex: 1; }
+    .msg-meta { margin-bottom: 4px; font-size: 0.85rem; color: #64748B; }
+    .msg-box { background: #fff; border: 1px solid #E2E8F0; padding: 16px; border-radius: 12px; line-height: 1.6; }
+    .msg-box.admin { background: #F0F7FF; border-color: #BAE6FD; } /* Warna beda untuk admin */
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row g-0">
+      
+      <aside class="col-12 col-lg-2 admin-side d-none d-lg-block" style="min-height: 100vh">
+        <a href="dashboard.html" class="brand-link" aria-label="GigaGears">
+          <img src="../assets/gigagears-logo.png" alt="GigaGears" class="brand-logo">
+        </a>
+
+        <nav class="nav flex-column nav-admin">
+          <a class="nav-link" href="dashboard.html"><i class="bi bi-grid-1x2"></i>Dashboard</a>
+          <a class="nav-link" href="customer.html"><i class="bi bi-people"></i>Data Customer</a>
+          <a class="nav-link" href="seller.html"><i class="bi bi-person-badge"></i>Data Seller</a>
+          <a class="nav-link" href="promotion.html"><i class="bi bi-ticket-perforated"></i>Promotion/Voucher</a>
+          <a class="nav-link" href="transaction.html"><i class="bi bi-receipt"></i>Data Transaction</a>
+          <a class="nav-link" href="analytics.html"><i class="bi bi-bar-chart"></i>Analytics & Report</a>
+          <a class="nav-link" href="product.html"><i class="bi bi-box"></i>Products</a>
+          <a class="nav-link active" href="inbox.html"><i class="bi bi-inbox"></i>Inbox</a>
+          <a class="nav-link" href="payment-verif.html"><i class="bi bi-shield-check"></i>Payment Verification</a>
+          <a class="nav-link" href="#"><i class="bi bi-truck"></i>Shipping Settings</a>
+        </nav>
+
+        <div class="mt-4">
+          <button class="btn btn-logout w-100"><i class="bi bi-box-arrow-right me-1"></i> Log Out</button>
+        </div>
+      </aside>
+
+      <main class="col-12 col-lg-10 main-wrap">
+
+        <div class="appbar px-3 px-md-4 py-3 mb-4 d-flex align-items-center justify-content-between">
+          <div>
+            <div class="small opacity-75 mb-1">Manage support tickets and inquiries</div>
+            <h1 class="wc-title h3 mb-0">Inbox / Tickets</h1>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-light btn-sm"><i class="bi bi-bell"></i></button>
+            <span class="badge-chip d-inline-flex align-items-center gap-2">
+              <img src="https://ui-avatars.com/api/?name=Admin&background=random" class="rounded-circle" width="24" height="24">
+              Admin
+            </span>
+          </div>
+        </div>
+
+        <div class="gg-card p-3 p-md-4 mb-3">
+          <div class="row g-2 align-items-center">
+            <div class="col-12 col-md-5">
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input id="searchInput" type="text" class="form-control" placeholder="Search Sender, Ticket ID...">
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <select class="form-select" id="statusFilter">
+                    <option value="all">All Messages</option>
+                    <option value="unread">Unread Only</option>
+                    <option value="open">Status: Open</option>
+                    <option value="closed">Status: Closed</option>
+                </select>
+            </div>
+            <div class="col-6 col-md-4 text-end">
+                <button class="btn btn-outline-secondary me-2"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+                <button class="btn btn-primary" onclick="alert('Create new ticket feature')"><i class="bi bi-plus-lg me-1"></i> Compose</button>
+            </div>
+          </div>
+        </div>
+
+        <section class="gg-card p-0">
+          <div class="table-responsive">
+            <table class="table table-blue-head table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th style="width: 50px;">#</th>
+                  <th>Sender</th>
+                  <th>Subject / Message Preview</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyInbox">
+                  </tbody>
+            </table>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center px-3 px-md-4 py-3 border-top">
+            <div class="small text-muted"><span id="countInfo">0</span> tickets</div>
+            <nav><ul class="pagination pagination-sm mb-0" id="pager"></ul></nav>
+          </div>
+        </section>
+
+        <p class="text-center mt-4 foot small mb-0">© 2025 GigaGears. All rights reserved.</p>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal fade" id="readModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        
+        <div class="modal-header">
+            <div>
+                <h5 class="modal-title fw-bold" id="vm-subject">Ticket Subject</h5>
+                <span class="badge bg-warning text-dark" id="vm-id">#TICKET-001</span>
+            </div>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body bg-light">
+            <div class="ticket-header">
+                <div class="row">
+                    <div class="col-6">
+                        <small class="text-muted d-block">Requester</small>
+                        <div class="fw-bold d-flex align-items-center gap-2">
+                            <img id="vm-avatar" src="" class="rounded-circle" width="24">
+                            <span id="vm-sender">User Name</span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <small class="text-muted d-block">Date</small>
+                        <div class="fw-bold" id="vm-date">Oct 24, 2025</div>
+                    </div>
+                    <div class="col-3">
+                        <small class="text-muted d-block">Status</small>
+                        <span class="badge-status pending" id="vm-status">Open</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="vm-thread">
+                </div>
+
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-2"><i class="bi bi-reply-fill"></i> Reply to ticket</h6>
+                    <textarea class="form-control mb-3" rows="4" placeholder="Write your reply here..."></textarea>
+                    <div class="d-flex justify-content-end gap-2">
+                        <button class="btn btn-outline-secondary">Mark as Closed</button>
+                        <button class="btn btn-primary px-4">Send Reply</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // --- DATA DUMMY INBOX ---
+    const tickets = Array.from({length: 15}).map((_,i)=>({
+        id: "TCK-" + String(2000+i),
+        sender: ["TechnoWorld", "John Doe", "GigaByte Official", "Sarah Connor", "Budi Santoso"][i%5],
+        role: ["Seller", "Customer", "Seller", "Customer", "Customer"][i%5],
+        subject: [
+            "Request Withdraw Pending", 
+            "Item not received yet", 
+            "Product approval request", 
+            "How to return item?", 
+            "Change shipping address"
+        ][i%5],
+        preview: "Hi Admin, I would like to ask about...",
+        date: "Oct " + (25-i) + ", 2025",
+        status: ["Open", "Replied", "Closed"][i%3],
+        isUnread: i < 3 // 3 pesan pertama belum dibaca
+    }));
+
+    let state = { q: "", page: 1, pageSize: 8 };
+    const el = id => document.getElementById(id);
+
+    function render() {
+        let data = tickets;
+        if(state.q) data = data.filter(t => t.sender.toLowerCase().includes(state.q) || t.id.toLowerCase().includes(state.q));
+
+        const total = data.length;
+        const pages = Math.ceil(total / state.pageSize);
+        const start = (state.page-1) * state.pageSize;
+        const rows = data.slice(start, start + state.pageSize);
+
+        el("tbodyInbox").innerHTML = rows.map(t => `
+            <tr class="${t.isUnread ? 'unread' : ''}">
+                <td><input type="checkbox" class="form-check-input"></td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(t.sender)}&background=random" class="table-avatar">
+                        <div>
+                            <div class="text-dark">${t.sender}</div>
+                            <div class="small text-muted fw-normal">${t.role}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <a href="#" onclick="openTicket('${t.id}')" class="subject-link">${t.subject}</a>
+                    <div class="small text-muted fw-normal text-truncate" style="max-width: 300px;">${t.preview}</div>
+                </td>
+                <td class="text-nowrap text-muted small">${t.date}</td>
+                <td>
+                    <span class="badge-status ${t.status === 'Open' ? 'pending' : (t.status === 'Replied' ? 'processing' : 'completed')}">
+                        ${t.status}
+                    </span>
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-icon text-primary" onclick="openTicket('${t.id}')" title="View"><i class="bi bi-eye-fill"></i></button>
+                    <button class="btn btn-icon text-danger" title="Delete"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>
+        `).join("");
+        
+        el("countInfo").innerText = total;
+        // Simple Pagination
+        let html = ''; for(let p=1; p<=pages; p++) html += `<li class="page-item ${p===state.page?'active':''}"><a class="page-link" href="#">${p}</a></li>`;
+        el("pager").innerHTML = html;
+    }
+
+    // FUNGSI BUKA MODAL
+    window.openTicket = function(id) {
+        const t = tickets.find(x => x.id === id);
+        if(t) {
+            el('vm-id').innerText = "#" + t.id;
+            el('vm-subject').innerText = t.subject;
+            el('vm-sender').innerText = t.sender;
+            el('vm-date').innerText = t.date;
+            el('vm-avatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(t.sender)}&background=random`;
+            
+            // Status Badge
+            const badge = el('vm-status');
+            badge.className = `badge-status ${t.status === 'Open' ? 'pending' : (t.status === 'Replied' ? 'processing' : 'completed')}`;
+            badge.innerText = t.status;
+
+            // Render Dummy Conversation
+            el('vm-thread').innerHTML = `
+                <div class="msg-bubble-container">
+                    <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(t.sender)}&background=random" class="msg-avatar">
+                    <div class="msg-content">
+                        <div class="msg-meta"><b>${t.sender}</b> • ${t.date} 10:30 AM</div>
+                        <div class="msg-box">
+                            <p class="mb-0">Hello Admin,<br><br>I have an issue regarding... ${t.subject}. Please help me check this. Thanks!</p>
+                        </div>
+                    </div>
+                </div>
+
+                ${t.status !== 'Open' ? `
+                <div class="msg-bubble-container">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=0D6EFD&color=fff" class="msg-avatar">
+                    <div class="msg-content">
+                        <div class="msg-meta"><b>You (Admin)</b> • ${t.date} 11:00 AM</div>
+                        <div class="msg-box admin">
+                            <p class="mb-0">Hi ${t.sender},<br><br>We have received your request. We will process it within 24 hours.</p>
+                        </div>
+                    </div>
+                </div>` : ''}
+            `;
+
+            new bootstrap.Modal(document.getElementById('readModal')).show();
+            
+            // Tandai sebagai 'Read' secara visual (hapus bold)
+            t.isUnread = false;
+            render();
+        }
+    };
+
+    el("searchInput").addEventListener("input", (e) => { state.q = e.target.value.trim(); render(); });
+    render();
+  </script>
+</body>
+</html>

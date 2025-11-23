@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GigaGears Admin — Analytics</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  
+  <link rel="stylesheet" href="css/admin.css">
+
+  <style>
+    /* --- Styles Khusus Analytics --- */
+    .stat-card-clean {
+        text-align: center; padding: 24px 16px; height: 100%;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+    }
+    .stat-title { color: #64748B; font-size: 0.9rem; font-weight: 600; margin-bottom: 12px; } /* Jarak judul ke angka */
+    .stat-value-blue { font-size: 2.5rem; font-weight: 700; color: #0D6EFD; line-height: 1; }
+    .stat-value-info { font-size: 2.5rem; font-weight: 700; color: #0EA5E9; line-height: 1; }
+    
+    .btn-orange { background-color: #FF8C00; color: white; border: 1px solid #E07B00; }
+    .btn-orange:hover { background-color: #E07B00; color: white; }
+
+    .chart-container { position: relative; height: 300px; width: 100%; }
+    .donut-container { position: relative; height: 220px; width: 100%; }
+
+    /* Date Picker Style */
+    .date-wrapper { display: flex; align-items: center; gap: 8px; }
+    .date-icon-box {
+        width: 42px; height: 42px;
+        display: flex; align-items: center; justify-content: center;
+        background: #F8FAFC; border: 1px solid #DEE2E6;
+        border-radius: 10px; color: #0D6EFD; flex-shrink: 0;
+    }
+    .date-range-input {
+        background-color: #fff !important; border: 1px solid #DEE2E6;
+        border-radius: 10px; height: 42px; font-weight: 500; color: #334155; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row g-0">
+      
+      <aside class="col-12 col-lg-2 admin-side d-none d-lg-block" style="min-height: 100vh">
+        <a href="dashboard.html" class="brand-link" aria-label="GigaGears">
+          <img src="../assets/gigagears-logo.png" alt="GigaGears" class="brand-logo">
+        </a>
+
+        <nav class="nav flex-column nav-admin">
+          <a class="nav-link" href="dashboard.html"><i class="bi bi-grid-1x2"></i>Dashboard</a>
+          <a class="nav-link" href="customer.html"><i class="bi bi-people"></i>Data Customer</a>
+          <a class="nav-link" href="seller.html"><i class="bi bi-person-badge"></i>Data Seller</a>
+          <a class="nav-link" href="promotion.html"><i class="bi bi-ticket-perforated"></i>Promotion/Voucher</a>
+          <a class="nav-link" href="transaction.html"><i class="bi bi-receipt"></i>Data Transaction</a>
+          <a class="nav-link active" href="analytics.html"><i class="bi bi-bar-chart"></i>Analytics & Report</a>
+          <a class="nav-link" href="product.html"><i class="bi bi-box"></i>Products</a>
+          <a class="nav-link" href="inbox.html"><i class="bi bi-inbox"></i>Inbox</a>
+          <a class="nav-link" href="payment-verif.html"><i class="bi bi-shield-check"></i>Payment Verification</a>
+          <a class="nav-link" href="#"><i class="bi bi-truck"></i>Shipping Settings</a>
+        </nav>
+
+        <div class="mt-4">
+          <button class="btn btn-logout w-100"><i class="bi bi-box-arrow-right me-1"></i> Log Out</button>
+        </div>
+      </aside>
+
+      <main class="col-12 col-lg-10 main-wrap">
+
+        <div class="appbar px-3 px-md-4 py-3 mb-4 d-flex align-items-center justify-content-between">
+          <div>
+            <div class="small opacity-75 mb-1">Get insights into marketplace performance</div>
+            <h1 class="wc-title h3 mb-0">Reports & Analytics</h1>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-light btn-sm"><i class="bi bi-bell"></i></button>
+            <span class="badge-chip d-inline-flex align-items-center gap-2">
+              <img src="https://ui-avatars.com/api/?name=Admin&background=random" class="rounded-circle" width="24" height="24">
+              Admin
+            </span>
+          </div>
+        </div>
+
+        <div class="row g-2 mb-4">
+            <div class="col-12 col-md-9">
+                <div class="date-wrapper w-100">
+                    <div class="date-icon-box"><i class="bi bi-calendar4-range fs-5"></i></div>
+                    <input type="text" id="dateRangePicker" class="form-control date-range-input" placeholder="Select Date Range">
+                </div>
+            </div>
+            <div class="col-12 col-md-3 text-end">
+                <button class="btn btn-orange w-100" style="height: 42px; border-radius: 10px;">
+                    <i class="bi bi-upload me-2"></i>Export Data
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <div class="gg-card stat-card-clean">
+                    <div class="stat-title">Total Revenue</div>
+                    <div class="stat-value-blue">$25,300</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gg-card stat-card-clean">
+                    <div class="stat-title">Total Orders</div>
+                    <div class="stat-value-info">1,240</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gg-card stat-card-clean">
+                    <div class="stat-title">New Customers</div>
+                    <div class="stat-value-info">320</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-6">
+                <div class="gg-card stat-card-clean">
+                    <div class="stat-title">Active Sellers</div>
+                    <div class="stat-value-info">58</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="gg-card stat-card-clean">
+                    <div class="stat-title">Products Sold</div>
+                    <div class="stat-value-info">3,560</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gg-card p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h5 class="fw-bold mb-0">Orders Over Time</h5>
+                    <div class="small text-muted" id="totalOrdersLabel">1,240 Orders</div>
+                </div>
+                <select class="form-select form-select-sm w-auto border-0 bg-light fw-bold text-primary" id="chartFilter">
+                    <option value="month">This Month</option>
+                    <option value="year">This Year</option>
+                    <option value="week">This Week</option>
+                </select>
+            </div>
+            <div class="chart-container">
+                <canvas id="ordersChart"></canvas>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-lg-6">
+                <div class="gg-card p-4 h-100">
+                    <h6 class="fw-bold mb-3">Top Categories by Sales</h6>
+                    <div class="donut-container"><canvas id="catChart"></canvas></div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="gg-card p-4 h-100">
+                    <h6 class="fw-bold mb-3">Payment Method Usage</h6>
+                    <div class="donut-container"><canvas id="paymentChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-center mt-5 foot small mb-0">© 2025 GigaGears. All rights reserved.</p>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <script>
+    // 1. Init Date Range
+    flatpickr("#dateRangePicker", {
+        mode: "range",
+        dateFormat: "M d, Y",
+        defaultDate: ["2025-09-01", "2025-09-30"], 
+        theme: "material_blue" 
+    });
+
+    // 2. Grafik Bar Interaktif
+    const ctxOrders = document.getElementById('ordersChart');
+    let myOrderChart; 
+
+    const dataMonth = {
+        labels: Array.from({length: 30}, (_, i) => i + 1),
+        data: [60, 90, 140, 210, 110, 60, 90, 140, 210, 110, 60, 90, 140, 210, 110, 60, 90, 140, 210, 110, 80, 95, 150, 200, 120, 70, 100, 130, 190, 100],
+        total: "1,240 Orders"
+    };
+    const dataYear = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        data: [450, 500, 750, 600, 900, 1200, 1500, 1300, 1100, 950, 1400, 1800],
+        total: "12,450 Orders"
+    };
+    const dataWeek = {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        data: [120, 150, 180, 140, 200, 350, 400],
+        total: "1,540 Orders"
+    };
+
+    if(ctxOrders) {
+        myOrderChart = new Chart(ctxOrders, {
+            type: 'bar',
+            data: {
+                labels: dataMonth.labels,
+                datasets: [{
+                    label: 'Orders',
+                    data: dataMonth.data,
+                    backgroundColor: '#0078D4',
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { borderDash: [3, 3] } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        document.getElementById('chartFilter').addEventListener('change', function(e) {
+            const selected = e.target.value;
+            let newData, newLabels, newTotal;
+
+            if (selected === 'year') {
+                newLabels = dataYear.labels; newData = dataYear.data; newTotal = dataYear.total;
+            } else if (selected === 'week') {
+                newLabels = dataWeek.labels; newData = dataWeek.data; newTotal = dataWeek.total;
+            } else {
+                newLabels = dataMonth.labels; newData = dataMonth.data; newTotal = dataMonth.total;
+            }
+
+            myOrderChart.data.labels = newLabels;
+            myOrderChart.data.datasets[0].data = newData;
+            myOrderChart.update(); 
+            document.getElementById('totalOrdersLabel').innerText = newTotal;
+        });
+    }
+
+    // 3. Grafik Kategori
+    const ctxCat = document.getElementById('catChart');
+    if(ctxCat) {
+        new Chart(ctxCat, {
+            type: 'doughnut',
+            data: {
+                labels: ['Smartphone', 'Laptop', 'Accessories', 'Gaming', 'Mac', 'Software'],
+                datasets: [{
+                    data: [25, 20, 15, 15, 15, 10],
+                    backgroundColor: ['#0D6EFD', '#FD7E14', '#DC3545', '#198754', '#6610F2', '#FFC107'], borderWidth: 0, hoverOffset: 4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { usePointStyle: true, padding: 20, font: { size: 11 } } } }, cutout: '65%' }
+        });
+    }
+
+    // 4. Grafik Payment
+    const ctxPay = document.getElementById('paymentChart');
+    if(ctxPay) {
+        new Chart(ctxPay, {
+            type: 'doughnut',
+            data: {
+                labels: ['Bank Transfer', 'E-Wallet', 'Credit Card', 'PayPal'],
+                datasets: [{
+                    data: [40, 30, 20, 10],
+                    backgroundColor: ['#0D6EFD', '#FD7E14', '#198754', '#6610F2'], borderWidth: 0, hoverOffset: 4
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { usePointStyle: true, padding: 20, font: { size: 11 } } } }, cutout: '65%' }
+        });
+    }
+  </script>
+</body>
+</html>
