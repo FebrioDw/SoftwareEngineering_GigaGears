@@ -12,7 +12,25 @@
   <link rel="stylesheet" href="css/admin.css">
 
   <style>
-    /* --- Style Card Shipping --- */
+    /* --- Layout Fix (Sidebar & Mobile) --- */
+    .admin-side {
+        width: 280px; height: 100vh; background: #fff; border-right: 1px solid #E6ECFB;
+        flex-shrink: 0; transition: transform 0.3s ease-in-out;
+        display: flex; flex-direction: column; position: sticky; top: 0;
+    }
+    .nav-admin { flex: 1; overflow-y: auto; }
+
+    @media (max-width: 991.98px) {
+        .admin-side { position: fixed; top: 0; left: 0; bottom: 0; z-index: 1050; transform: translateX(-100%); box-shadow: none; }
+        .admin-side.show { transform: translateX(0); box-shadow: 4px 0 24px rgba(0,0,0,0.15); }
+    }
+    .sidebar-overlay {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); 
+        z-index: 1040; display: none; opacity: 0; transition: opacity 0.3s;
+    }
+    .sidebar-overlay.show { display: block; opacity: 1; }
+
+    /* --- Style Khusus Shipping --- */
     .ship-card {
         background: #fff; border: 1px solid var(--gg-border); border-radius: 12px;
         padding: 24px; margin-bottom: 16px; transition: transform 0.2s, box-shadow 0.2s;
@@ -23,7 +41,6 @@
     .ship-label { font-size: 0.75rem; color: #64748B; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px; }
     .ship-value { font-size: 0.95rem; font-weight: 700; color: var(--gg-ink); }
 
-    /* Buttons */
     .btn-outline-orange { color: #F59E0B; border: 1px solid #F59E0B; background: transparent; }
     .btn-outline-orange:hover { background: #FFF7E6; color: #D97706; border-color: #D97706; }
     .btn-outline-danger { color: #DC3545; border-color: #DC3545; }
@@ -31,13 +48,14 @@
   </style>
 </head>
 <body>
-  <div class="container-fluid">
-    <div class="row g-0">
-      
-      <aside class="col-12 col-lg-2 admin-side d-none d-lg-block" style="min-height: 100vh">
+  
+  <div class="container-fluid p-0 d-flex" style="min-height: 100vh; overflow-x: hidden;">
+    
+    <aside class="admin-side" id="adminSidebar">
         <a href="dashboard.html" class="brand-link" aria-label="GigaGears">
           <img src="../assets/gigagears-logo.png" alt="GigaGears" class="brand-logo">
         </a>
+
         <nav class="nav flex-column nav-admin">
           <a class="nav-link" href="dashboard.html"><i class="bi bi-grid-1x2"></i>Dashboard</a>
           <a class="nav-link" href="customer.html"><i class="bi bi-people"></i>Data Customer</a>
@@ -50,19 +68,29 @@
           <a class="nav-link" href="payment-verif.html"><i class="bi bi-shield-check"></i>Payment Verification</a>
           <a class="nav-link active" href="shipping.html"><i class="bi bi-truck"></i>Shipping Settings</a>
         </nav>
-        <div class="mt-4"><button class="btn btn-logout w-100"><i class="bi bi-box-arrow-right me-1"></i> Log Out</button></div>
-      </aside>
 
-      <main class="col-12 col-lg-10 main-wrap">
+        <div class="mt-auto pb-4 px-3">
+          <button class="btn btn-logout w-100"><i class="bi bi-box-arrow-right me-1"></i> Log Out</button>
+        </div>
+    </aside>
+
+    <main class="main-wrap flex-grow-1" style="min-width: 0;">
+
         <div class="appbar px-3 px-md-4 py-3 mb-4 d-flex align-items-center justify-content-between">
-          <div>
-            <div class="small opacity-75 mb-1">Manage available couriers and their delivery services</div>
-            <h1 class="wc-title h3 mb-0">Shipping Management</h1>
+          <div class="d-flex align-items-center gap-3">
+            <button class="btn btn-light d-lg-none shadow-sm p-1 px-2" id="btnToggle" style="border-radius: 8px;">
+                <i class="bi bi-list fs-3"></i>
+            </button>
+            <div>
+                <div class="small opacity-75 mb-1">Manage available couriers and their delivery services</div>
+                <h1 class="wc-title h3 mb-0">Shipping Management</h1>
+            </div>
           </div>
           <div class="d-flex align-items-center gap-2">
             <button class="btn btn-light btn-sm"><i class="bi bi-bell"></i></button>
             <span class="badge-chip d-inline-flex align-items-center gap-2">
-              <img src="https://ui-avatars.com/api/?name=Admin&background=random" class="rounded-circle" width="24" height="24"> Admin
+              <img src="https://ui-avatars.com/api/?name=Admin&background=random" class="rounded-circle" width="24" height="24">
+              Admin
             </span>
           </div>
         </div>
@@ -93,8 +121,7 @@
         </div>
 
         <p class="text-center mt-5 foot small mb-0">© 2025 GigaGears. All rights reserved.</p>
-      </main>
-    </div>
+    </main>
   </div>
 
   <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
@@ -106,7 +133,7 @@
         </div>
         <div class="modal-body">
             <p class="text-muted">Form untuk menambah shipping baru...</p>
-            </div>
+        </div>
       </div>
     </div>
   </div>
@@ -115,52 +142,23 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-            <div>
-                <h5 class="modal-title fw-bold">Edit Shipping Option</h5>
-                <p class="text-muted small mb-0">Update rates and delivery estimation.</p>
-            </div>
+            <div><h5 class="modal-title fw-bold">Edit Shipping Option</h5><p class="text-muted small mb-0">Update rates and delivery estimation.</p></div>
             <button class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
             <form id="editForm">
-                <input type="hidden" id="editId"> <div class="row g-3 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Courier Name</label>
-                        <input type="text" id="editCourier" class="form-control fw-bold">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Service Type</label>
-                        <input type="text" id="editService" class="form-control fw-bold">
-                    </div>
-                </div>
-
+                <input type="hidden" id="editId">
                 <div class="row g-3 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Base Rate ($)</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light">$</span>
-                            <input type="text" id="editRate" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Rate per Kg</label>
-                        <input type="text" id="editKg" class="form-control">
-                    </div>
+                    <div class="col-md-6"><label class="form-label small text-muted">Courier Name</label><input type="text" id="editCourier" class="form-control fw-bold"></div>
+                    <div class="col-md-6"><label class="form-label small text-muted">Service Type</label><input type="text" id="editService" class="form-control fw-bold"></div>
                 </div>
-
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6"><label class="form-label small text-muted">Base Rate ($)</label><div class="input-group"><span class="input-group-text bg-light">$</span><input type="text" id="editRate" class="form-control"></div></div>
+                    <div class="col-md-6"><label class="form-label small text-muted">Rate per Kg</label><input type="text" id="editKg" class="form-control"></div>
+                </div>
                 <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Estimated Delivery</label>
-                        <input type="text" id="editEst" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label small text-muted">Coverage</label>
-                        <select class="form-select" id="editCoverage">
-                            <option>Domestic (Indonesia)</option>
-                            <option>International</option>
-                            <option>Java Island Only</option>
-                        </select>
-                    </div>
+                    <div class="col-md-6"><label class="form-label small text-muted">Estimated Delivery</label><input type="text" id="editEst" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label small text-muted">Coverage</label><select class="form-select" id="editCoverage"><option>Domestic (Indonesia)</option><option>International</option><option>Java Island Only</option></select></div>
                 </div>
             </form>
         </div>
@@ -172,9 +170,25 @@
     </div>
   </div>
 
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
   <script>
-    // --- DATA DUMMY ---
+    const btnToggle = document.getElementById('btnToggle');
+    const sidebar = document.getElementById('adminSidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    function toggleSidebar() {
+        sidebar.classList.toggle('show');
+        overlay.classList.toggle('show');
+    }
+
+    if(btnToggle) btnToggle.addEventListener('click', toggleSidebar);
+    if(overlay) overlay.addEventListener('click', toggleSidebar);
+  </script>
+
+  <script>
     const shippingData = [
         { id: 1, title: "JNE Express (REG)", courier: "JNE Express", service: "REG (Regular)", baseRate: "3.00", perKg: "+ $1.50 / Kg", est: "2-4 days", coverage: "Domestic (Indonesia)", status: "Active" },
         { id: 2, title: "J&T Economy", courier: "J&T Express", service: "Economy", baseRate: "2.50", perKg: "+ $1.00 / Kg", est: "3-5 days", coverage: "Domestic (Indonesia)", status: "Active" },
@@ -183,7 +197,7 @@
     ];
 
     const container = document.getElementById('shippingListContainer');
-    let editModalInstance; // Untuk kontrol modal via JS
+    let editModalInstance;
 
     function render() {
         container.innerHTML = shippingData.map(item => `
@@ -210,45 +224,34 @@
         `).join("");
     }
 
-    // --- FUNGSI 1: Buka Modal Edit & Isi Data ---
     window.editShipping = function(id) {
         const item = shippingData.find(x => x.id === id);
         if(item) {
-            // Isi value input form dengan data yang ada
             document.getElementById('editId').value = item.id;
             document.getElementById('editCourier').value = item.courier;
             document.getElementById('editService').value = item.service;
-            document.getElementById('editRate').value = item.baseRate; // Ambil angkanya saja
+            document.getElementById('editRate').value = item.baseRate;
             document.getElementById('editKg').value = item.perKg;
             document.getElementById('editEst').value = item.est;
             document.getElementById('editCoverage').value = item.coverage;
-
-            // Tampilkan Modal
             const modalEl = document.getElementById('editModal');
             editModalInstance = new bootstrap.Modal(modalEl);
             editModalInstance.show();
         }
     }
 
-    // --- FUNGSI 2: Simpan Perubahan (Simulasi) ---
     window.saveEdit = function() {
         const id = parseInt(document.getElementById('editId').value);
         const item = shippingData.find(x => x.id === id);
-        
         if(item) {
-            // Update data di array dengan value dari input
             item.courier = document.getElementById('editCourier').value;
             item.service = document.getElementById('editService').value;
             item.baseRate = document.getElementById('editRate').value;
             item.perKg = document.getElementById('editKg').value;
             item.est = document.getElementById('editEst').value;
             item.coverage = document.getElementById('editCoverage').value;
-            item.title = `${item.courier} (${item.service})`; // Update judul kartu otomatis
-
-            // Render ulang tampilan agar perubahan terlihat
+            item.title = `${item.courier} (${item.service})`;
             render();
-            
-            // Tutup Modal
             editModalInstance.hide();
             alert("Shipping option updated successfully!");
         }
