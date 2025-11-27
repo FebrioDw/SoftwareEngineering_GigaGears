@@ -12,48 +12,35 @@
   <link rel="stylesheet" href="css/admin.css">
 
   <style>
-    /* 1. Fix Lebar & Layout Sidebar */
+    /* --- 1. LAYOUT FIX (SIDEBAR & MOBILE) --- */
     .admin-side {
         width: 280px; 
-        height: 100vh; /* Tinggi pas setinggi layar */
-        background: #fff;
+        height: 100vh; 
+        background: #fff; 
         border-right: 1px solid #E6ECFB;
-        flex-shrink: 0;
+        flex-shrink: 0; 
         transition: transform 0.3s ease-in-out;
-        
-        /* --- PERBAIKAN UTAMA DISINI --- */
-        display: flex;           /* Aktifkan Flexbox */
-        flex-direction: column;  /* Susun vertikal */
-        overflow-y: auto;        /* Izinkan SCROLL jika layar pendek */
-        position: sticky;        /* Tetap di tempat untuk Desktop */
+        display: flex; 
+        flex-direction: column; 
+        position: sticky; 
         top: 0;
     }
-
-    /* Agar Menu Mengisi Ruang Kosong (Logout terdorong ke bawah) */
-    .nav-admin {
-        flex: 1; 
-        margin-bottom: 20px;
+    
+    /* --- 2. SCROLLBAR STANDARD (DEFAULT BROWSER) --- */
+    .nav-scroll-wrap { 
+        flex: 1;            
+        overflow-y: auto;   /* Scrollbar Bawaan Browser */
     }
 
-    /* 2. Logika Tampilan Mobile (HP) */
+    /* Mobile Logic */
     @media (max-width: 991.98px) {
-        .admin-side {
-            position: fixed; /* Melayang di HP */
-            top: 0; left: 0; bottom: 0;
-            z-index: 1050; 
-            transform: translateX(-100%); /* Sembunyi */
-            box-shadow: none;
-        }
-        .admin-side.show {
-            transform: translateX(0); /* Muncul */
-            box-shadow: 4px 0 24px rgba(0,0,0,0.15);
-        }
+        .admin-side { position: fixed; top: 0; left: 0; bottom: 0; z-index: 1050; transform: translateX(-100%); box-shadow: none; }
+        .admin-side.show { transform: translateX(0); box-shadow: 4px 0 24px rgba(0,0,0,0.15); }
     }
-
-    /* 3. Overlay Hitam */
+    
     .sidebar-overlay {
-        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0,0,0,0.5); z-index: 1040;
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+        background: rgba(0,0,0,0.5); z-index: 1040; 
         display: none; opacity: 0; transition: opacity 0.3s;
     }
     .sidebar-overlay.show { display: block; opacity: 1; }
@@ -68,20 +55,22 @@
           <img src="../assets/gigagears-logo.png" alt="GigaGears" class="brand-logo">
         </a>
 
-        <nav class="nav flex-column nav-admin">
-          <a class="nav-link active" href="dashboard.html"><i class="bi bi-grid-1x2"></i>Dashboard</a>
-          <a class="nav-link" href="customer.html"><i class="bi bi-people"></i>Data Customer</a>
-          <a class="nav-link" href="seller.html"><i class="bi bi-person-badge"></i>Data Seller</a>
-          <a class="nav-link" href="promotion.html"><i class="bi bi-ticket-perforated"></i>Promotion/Voucher</a>
-          <a class="nav-link" href="transaction.html"><i class="bi bi-receipt"></i>Data Transaction</a>
-          <a class="nav-link" href="analytics.html"><i class="bi bi-bar-chart"></i>Analytics & Report</a>
-          <a class="nav-link" href="product.html"><i class="bi bi-box"></i>Products</a>
-          <a class="nav-link" href="inbox.html"><i class="bi bi-inbox"></i>Inbox</a>
-          <a class="nav-link" href="payment-verif.html"><i class="bi bi-shield-check"></i>Payment Verification</a>
-          <a class="nav-link" href="shipping.html"><i class="bi bi-truck"></i>Shipping Settings</a>
-        </nav>
+        <div class="nav-scroll-wrap">
+            <nav class="nav flex-column nav-admin">
+              <a class="nav-link active" href="dashboard.html"><i class="bi bi-grid-1x2"></i>Dashboard</a>
+              <a class="nav-link" href="customer.html"><i class="bi bi-people"></i>Data Customer</a>
+              <a class="nav-link" href="seller.html"><i class="bi bi-person-badge"></i>Data Seller</a>
+              <a class="nav-link" href="promotion.html"><i class="bi bi-ticket-perforated"></i>Promotion/Voucher</a>
+              <a class="nav-link" href="transaction.html"><i class="bi bi-receipt"></i>Data Transaction</a>
+              <a class="nav-link" href="analytics.html"><i class="bi bi-bar-chart"></i>Analytics & Report</a>
+              <a class="nav-link" href="product.html"><i class="bi bi-box"></i>Products</a>
+              <a class="nav-link" href="inbox.html"><i class="bi bi-inbox"></i>Inbox</a>
+              <a class="nav-link" href="payment-verif.html"><i class="bi bi-shield-check"></i>Payment Verification</a>
+              <a class="nav-link" href="shipping.html"><i class="bi bi-truck"></i>Shipping Settings</a>
+            </nav>
+        </div>
 
-        <div class="mt-auto pb-4 px-3">
+        <div class="mt-auto pb-4 px-3 pt-3 border-top">
           <button class="btn btn-logout w-100"><i class="bi bi-box-arrow-right me-1"></i> Log Out</button>
         </div>
     </aside>
@@ -89,7 +78,6 @@
     <main class="main-wrap flex-grow-1" style="min-width: 0;">
 
         <div class="appbar px-3 px-md-4 py-3 mb-4 d-flex align-items-center justify-content-between">
-          
           <div class="d-flex align-items-center gap-3">
             <button class="btn btn-light d-lg-none shadow-sm p-1 px-2" id="btnToggle" style="border-radius: 8px;">
                 <i class="bi bi-list fs-3"></i>
@@ -99,7 +87,6 @@
                 <h1 class="wc-title mb-0">Admin GigaGears</h1>
             </div>
           </div>
-
           <div class="d-flex align-items-center gap-2">
             <button class="btn btn-light btn-sm"><i class="bi bi-bell"></i></button>
             <span class="badge-chip d-inline-flex align-items-center gap-2">

@@ -12,25 +12,43 @@
   <link rel="stylesheet" href="css/admin.css">
 
   <style>
-    /* --- Layout Fix (Sidebar & Mobile) --- */
+    /* --- 1. LAYOUT FIX (SIDEBAR & MOBILE) --- */
     .admin-side {
-        width: 280px; height: 100vh; background: #fff; border-right: 1px solid #E6ECFB;
-        flex-shrink: 0; transition: transform 0.3s ease-in-out;
-        display: flex; flex-direction: column; position: sticky; top: 0;
+        width: 280px; 
+        height: 100vh; 
+        background: #fff; 
+        border-right: 1px solid #E6ECFB;
+        flex-shrink: 0; 
+        transition: transform 0.3s ease-in-out;
+        
+        /* Flexbox Vertical */
+        display: flex; 
+        flex-direction: column; 
+        position: sticky; 
+        top: 0;
     }
-    .nav-admin { flex: 1; overflow-y: auto; }
+    
+    /* --- 2. SCROLLBAR STANDARD (DEFAULT) --- */
+    /* Wrapper Menu agar bisa discroll menggunakan scrollbar bawaan browser */
+    .nav-scroll-wrap { 
+        flex: 1;            
+        overflow-y: auto;   
+    }
 
+    /* Mobile Logic */
     @media (max-width: 991.98px) {
         .admin-side { position: fixed; top: 0; left: 0; bottom: 0; z-index: 1050; transform: translateX(-100%); box-shadow: none; }
         .admin-side.show { transform: translateX(0); box-shadow: 4px 0 24px rgba(0,0,0,0.15); }
     }
+    
     .sidebar-overlay {
-        position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); 
-        z-index: 1040; display: none; opacity: 0; transition: opacity 0.3s;
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+        background: rgba(0,0,0,0.5); z-index: 1040; 
+        display: none; opacity: 0; transition: opacity 0.3s;
     }
     .sidebar-overlay.show { display: block; opacity: 1; }
 
-    /* --- Style Khusus Payment Verif --- */
+    /* --- 3. STYLE KHUSUS PAYMENT VERIF --- */
     .table-blue-head thead th { background-color: #0D6EFD !important; color: #fff !important; font-weight: 600; border: 0; padding: 14px; }
     .table-blue-head thead th:first-child { border-top-left-radius: 8px; }
     .table-blue-head thead th:last-child { border-top-right-radius: 8px; }
@@ -39,7 +57,7 @@
     .proof-thumb { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #dee2e6; cursor: pointer; transition: .2s; }
     .proof-thumb:hover { transform: scale(1.5); z-index: 10; position: relative; }
 
-    /* Modal Verif */
+    /* Modal Verif Styles */
     .receipt-preview { background: #334155; border-radius: 12px; height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .receipt-img { max-width: 100%; max-height: 100%; object-fit: contain; }
     .verif-label { font-size: 0.8rem; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
@@ -56,20 +74,22 @@
           <img src="../assets/gigagears-logo.png" alt="GigaGears" class="brand-logo">
         </a>
 
-        <nav class="nav flex-column nav-admin">
-          <a class="nav-link" href="dashboard.html"><i class="bi bi-grid-1x2"></i>Dashboard</a>
-          <a class="nav-link" href="customer.html"><i class="bi bi-people"></i>Data Customer</a>
-          <a class="nav-link" href="seller.html"><i class="bi bi-person-badge"></i>Data Seller</a>
-          <a class="nav-link" href="promotion.html"><i class="bi bi-ticket-perforated"></i>Promotion/Voucher</a>
-          <a class="nav-link" href="transaction.html"><i class="bi bi-receipt"></i>Data Transaction</a>
-          <a class="nav-link" href="analytics.html"><i class="bi bi-bar-chart"></i>Analytics & Report</a>
-          <a class="nav-link" href="product.html"><i class="bi bi-box"></i>Products</a>
-          <a class="nav-link" href="inbox.html"><i class="bi bi-inbox"></i>Inbox</a>
-          <a class="nav-link active" href="payment-verif.html"><i class="bi bi-shield-check"></i>Payment Verification</a>
-          <a class="nav-link" href="shipping.html"><i class="bi bi-truck"></i>Shipping Settings</a>
-        </nav>
+        <div class="nav-scroll-wrap">
+            <nav class="nav flex-column nav-admin">
+              <a class="nav-link" href="dashboard.html"><i class="bi bi-grid-1x2"></i>Dashboard</a>
+              <a class="nav-link" href="customer.html"><i class="bi bi-people"></i>Data Customer</a>
+              <a class="nav-link" href="seller.html"><i class="bi bi-person-badge"></i>Data Seller</a>
+              <a class="nav-link" href="promotion.html"><i class="bi bi-ticket-perforated"></i>Promotion/Voucher</a>
+              <a class="nav-link" href="transaction.html"><i class="bi bi-receipt"></i>Data Transaction</a>
+              <a class="nav-link" href="analytics.html"><i class="bi bi-bar-chart"></i>Analytics & Report</a>
+              <a class="nav-link" href="product.html"><i class="bi bi-box"></i>Products</a>
+              <a class="nav-link" href="inbox.html"><i class="bi bi-inbox"></i>Inbox</a>
+              <a class="nav-link active" href="payment-verif.html"><i class="bi bi-shield-check"></i>Payment Verification</a>
+              <a class="nav-link" href="shipping.html"><i class="bi bi-truck"></i>Shipping Settings</a>
+            </nav>
+        </div>
 
-        <div class="mt-auto pb-4 px-3">
+        <div class="mt-auto pb-4 px-3 pt-3 border-top">
           <button class="btn btn-logout w-100"><i class="bi bi-box-arrow-right me-1"></i> Log Out</button>
         </div>
     </aside>
