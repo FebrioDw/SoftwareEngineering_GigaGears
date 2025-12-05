@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GigaGears - Communities</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/customer-style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top border-bottom bg-white" style="padding-top: 1.2rem; padding-bottom: 1.2rem;">
+        <div class="container">
+            <a class="navbar-brand" href="customer-communities.html">
+                <img src="../assets/gigagears-logo.png" alt="GIGAGEARS*" style="height: 24px;"> 
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav gap-4 lg:gap-5"> 
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-blue-link" href="#">Products</a></li>
+                    <li class="nav-item"><a class="nav-link active text-dark fw-bold" href="customer-communities.html">Communities</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">My Order</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+                </ul>
+            </div>
+
+            <div class="d-flex ms-auto ms-lg-0">
+                <a href="#" class="btn btn-profile d-flex align-items-center gap-2">
+                    <span class="small fw-semibold">Profile</span>
+                    <img src="https://ui-avatars.com/api/?name=User&background=1F2937&color=fff" alt="User" class="rounded-circle" width="28" height="28">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container" style="margin-top: 120px; margin-bottom: 100px;">
+        
+        <div class="header-gradient-blue p-4 rounded-4 mb-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 shadow-sm">
+            <div>
+                <h1 class="fw-bold mb-1 text-white fs-2">Communities</h1>
+                <p class="mb-0 text-white opacity-90">Insights, Recommendation & Everything You Need To Know</p>
+            </div>
+            <div>
+                <button class="btn btn-outline-light border-2 rounded-pill px-4 py-2 d-flex align-items-center gap-2 fw-semibold">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=ffffff&color=2563EB" alt="Admin" class="rounded-circle p-1 bg-white" width="28" height="28">
+                    <span>Admin</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="create-post-bar d-flex align-items-center justify-content-between p-3 rounded-4">
+                    <div class="d-flex align-items-center gap-3 flex-grow-1 cursor-pointer" data-bs-toggle="modal" data-bs-target="#createPostModal">
+                        <img src="https://ui-avatars.com/api/?name=User&background=333&color=fff" class="rounded-circle avatar-md">
+                        <span class="text-muted opacity-75">Let's share what going on your mind...</span>
+                    </div>
+                    <button class="btn btn-gradient-blue rounded-pill px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#createPostModal">
+                        Create A Post
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row gap-4">
+            
+            <div class="col-12">
+                <a href="customer-post-detail-1.html" class="text-decoration-none">
+                    <div class="post-card card border p-3 rounded-4">
+                        <div class="row g-0 align-items-center h-100">
+                            <div class="col-md-3 d-none d-md-block">
+                                <div class="post-image-placeholder rounded-4 bg-light h-100 w-100 d-flex align-items-center justify-content-center" style="min-height: 160px;">
+                                    <i class="bi bi-laptop text-secondary fs-1 opacity-25"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-9 ps-md-4 pt-3 pt-md-0 position-relative d-flex flex-column justify-content-between" style="min-height: 160px;">
+                                <i class="bi bi-heart-fill position-absolute top-0 end-0 text-muted opacity-25 fs-5"></i>
+                                <div>
+                                    <h4 class="card-title fw-bold mb-2 pe-4">Best Laptops for Developers in 2025: A GIGA GEARS Guide</h4>
+                                    <span class="text-decoration-none text-muted small">As a developer, choosing the right laptop is crucial for productivity and performance, especially when your work demands a lot of power... Read More</span>
+                                </div>
+                                <div class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-3">
+                                    <div class="d-flex align-items-center gap-4 text-muted small">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="https://ui-avatars.com/api/?name=Giga+Team&background=0D6EFD&color=fff" class="rounded-circle" width="24">
+                                            <span class="fw-semibold text-dark">GigaGears Team</span> • 2 days ago
+                                        </div>
+                                        <div>2,405 Views</div>
+                                        <div>340 Likes</div>
+                                        <div>45 comments</div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <span class="badge rounded-pill text-bg-dark-custom px-3 py-2">Developer</span>
+                                        <span class="badge rounded-pill text-bg-dark-custom px-3 py-2">Laptop</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-12">
+                <a href="customer-post-detail-2.html" class="text-decoration-none">
+                    <div class="post-card card border p-3 rounded-4">
+                        <div class="row g-0 align-items-center h-100">
+                            <div class="col-md-3 d-none d-md-block">
+                                <div class="post-image-placeholder rounded-4 bg-light h-100 w-100 d-flex align-items-center justify-content-center" style="min-height: 160px;">
+                                    <i class="bi bi-house-gear text-secondary fs-1 opacity-25"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-9 ps-md-4 pt-3 pt-md-0 position-relative d-flex flex-column justify-content-between" style="min-height: 160px;">
+                                <i class="bi bi-heart-fill position-absolute top-0 end-0 text-muted opacity-25 fs-5"></i>
+                                <div>
+                                    <h4 class="card-title fw-bold mb-2 pe-4">Are Smart Home Devices Worth the Investment? GIGA GEARS Experts Weigh In</h4>
+                                    <span class="text-decoration-none text-muted small">Smart home technology is becoming an integral part of modern life, with everything from thermostats to security cameras designed to make daily routines easier...  Read More</span>
+                                </div>
+                                <div class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-3">
+                                    <div class="d-flex align-items-center gap-4 text-muted small">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="https://ui-avatars.com/api/?name=Home+Expert&background=10B981&color=fff" class="rounded-circle" width="24">
+                                            <span class="fw-semibold text-dark">HomeExpert</span> • 4 days ago
+                                        </div>
+                                        <div>1,832 Views</div>
+                                        <div>210 Likes</div>
+                                        <div>32 comments</div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <span class="badge rounded-pill text-bg-dark-custom px-3 py-2">Smart Home</span>
+                                        <span class="badge rounded-pill text-bg-dark-custom px-3 py-2">IoT</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-12">
+                <a href="customer-post-detail-3.html" class="text-decoration-none">
+                    <div class="post-card card border p-3 rounded-4">
+                        <div class="row g-0 align-items-center h-100">
+                            <div class="col-md-3 d-none d-md-block">
+                                <div class="post-image-placeholder rounded-4 bg-light h-100 w-100 d-flex align-items-center justify-content-center" style="min-height: 160px;">
+                                    <i class="bi bi-phone text-secondary fs-1 opacity-25"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-9 ps-md-4 pt-3 pt-md-0 position-relative d-flex flex-column justify-content-between" style="min-height: 160px;">
+                                <i class="bi bi-heart-fill position-absolute top-0 end-0 text-muted opacity-25 fs-5"></i>
+                                <div>
+                                    <h4 class="card-title fw-bold mb-2 pe-4">Best Budget Smartphones for 2025: Get the Best Deals at GIGA GEARS</h4>
+                                    <span class="text-decoration-none text-muted small">In today’s fast-paced world, smartphones are an essential tool for staying connected. [cite_start]However, not everyone needs a flagship device... Read More</span>
+                                </div>
+                                <div class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-3">
+                                    <div class="d-flex align-items-center gap-4 text-muted small">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="https://ui-avatars.com/api/?name=Mobile+Tech&background=F59E0B&color=fff" class="rounded-circle" width="24">
+                                            <span class="fw-semibold text-dark">MobileReview</span> • 1 week ago
+                                        </div>
+                                        <div>3,150 Views</div>
+                                        <div>450 Likes</div>
+                                        <div>88 comments</div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <span class="badge rounded-pill text-bg-dark-custom px-3 py-2">Smartphone</span>
+                                        <span class="badge rounded-pill text-bg-dark-custom px-3 py-2">Budget</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-12">
+                <a href="customer-post-detail-4.html" class="text-decoration-none">
+                    <div class="post-card card border p-3 rounded-4">
+                        <div class="row g-0 align-items-center h-100">
+                            <div class="col-md-3 d-none d-md-block">
+                                <div class="post-image-placeholder rounded-4 bg-light h-100 w-100 d-flex align-items-center justify-content-center" style="min-height: 160px;">
+                                    <i class="bi bi-shop text-secondary fs-1 opacity-25"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-9 ps-md-4 pt-3 pt-md-0 position-relative d-flex flex-column justify-content-between" style="min-height: 160px;">
+                                <i class="bi bi-heart-fill position-absolute top-0 end-0 text-muted opacity-25 fs-5"></i>
+                                <div>
+                                    <h4 class="card-title fw-bold mb-2 pe-4">Which E-commerce Platform is Best for Selling IT Products?</h4>
+                                    <span class="text-decoration-none text-muted small">When it comes to building a successful online store for selling IT products, choosing the right e-commerce platform is essential... Read More</span>
+                                </div>
+                                <div class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-3">
+                                    <div class="d-flex align-items-center gap-4 text-muted small">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="https://ui-avatars.com/api/?name=Biz+Guru&background=6366F1&color=fff" class="rounded-circle" width="24">
+                                            <span class="fw-semibold text-dark">BizGuru</span> • 2 weeks ago
+                                        </div>
+                                        <div>950 Views</div>
+                                        <div>120 Likes</div>
+                                        <div>14 comments</div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <span class="badge rounded-pill text-bg-dark-custom px-3 py-2">E-commerce</span>
+                                        <span class="badge rounded-pill text-bg-dark-custom px-3 py-2">Business</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+             <div class="col-12">
+                <a href="customer-post-detail-5.html" class="text-decoration-none">
+                    <div class="post-card card border p-3 rounded-4">
+                        <div class="row g-0 align-items-center h-100">
+                            <div class="col-md-3 d-none d-md-block">
+                                <div class="post-image-placeholder rounded-4 bg-light h-100 w-100 d-flex align-items-center justify-content-center" style="min-height: 160px;">
+                                    <i class="bi bi-smartwatch text-secondary fs-1 opacity-25"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-9 ps-md-4 pt-3 pt-md-0 position-relative d-flex flex-column justify-content-between" style="min-height: 160px;">
+                                <i class="bi bi-heart-fill position-absolute top-0 end-0 text-muted opacity-25 fs-5"></i>
+                                <div>
+                                    <h4 class="card-title fw-bold mb-2 pe-4">Which Smartwatch Offers the Best Value for Fitness Tracking?</h4>
+                                    <span class="text-decoration-none text-muted small">I’ve been thinking about getting a smartwatch to track my workouts and overall fitness, but I’m torn between the Apple Watch...  Read More</span>
+                                </div>
+                                <div class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-3">
+                                    <div class="d-flex align-items-center gap-4 text-muted small">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="https://ui-avatars.com/api/?name=Fitness+Techie&background=EF4444&color=fff" class="rounded-circle" width="24">
+                                            <span class="fw-semibold text-dark">FitnessTechie</span> • 1 week ago
+                                        </div>
+                                        <div>980 Views</div>
+                                        <div>180 Likes</div>
+                                        <div>15 comments</div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <span class="badge rounded-pill text-bg-dark-custom px-3 py-2">Wearables</span>
+                                        <span class="badge rounded-pill text-bg-dark-custom px-3 py-2">Fitness</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+    </main>
+
+    <footer class="footer-gradient pt-5 pb-3">
+        <div class="container">
+            <div class="row gy-5 mb-5 justify-content-between">
+                <div class="col-lg-4 col-md-6">
+                    <a class="navbar-brand" href="#">
+                        <img src="../assets/gigagears-logo.png" alt="GIGAGEARS*" style="height: 24px;">
+                    </a>
+                    <p class="mt-3 text-muted pe-lg-5 small">Empowering your digital lifestyle with the best tech and software.</p>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h6 class="footer-title">Quick Links</h6>
+                    <ul class="list-unstyled footer-links d-flex flex-column gap-2">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h6 class="footer-title">Customer Support</h6>
+                    <ul class="list-unstyled footer-links d-flex flex-column gap-2">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping & Delivery</a></li>
+                        <li><a href="#">Return & Refund</a></li>
+                        <li><a href="#">Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="footer-title">Social Media</h6>
+                    <ul class="list-unstyled footer-links d-flex flex-column gap-2">
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">X (Twitter)</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center pt-4 border-top border-dark border-opacity-10">
+                <p class="mb-0 fw-bold small text-muted">© 2025 GigaGears. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="createPostModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold">Create a Post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-4">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <img src="https://ui-avatars.com/api/?name=User&background=333&color=fff" class="rounded-circle" width="40">
+                        <div><h6 class="mb-0 fw-semibold">Posting as User</h6><small class="text-muted">Public Community</small></div>
+                    </div>
+                    <form>
+                        <div class="mb-3"><input type="text" class="form-control form-control-lg rounded-3 bg-light border-light" placeholder="Post Title"></div>
+                        <div class="mb-3"><textarea class="form-control rounded-3 bg-light border-light" rows="5" placeholder="What's on your mind?"></textarea></div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-2 p-2 border rounded-3 bg-white text-muted shadow-sm cursor-pointer">
+                                    <i class="bi bi-image fs-5 text-primary"></i><span class="small">Add Image</span>
+                                </div>
+                            </div>
+                             <div class="col-md-6"><input type="text" class="form-control rounded-3" placeholder="Tags (comma separated)"></div>
+                         </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top-0 pt-0 pb-4 px-4">
+                    <button type="button" class="btn btn-light rounded-pill px-4 fw-semibold" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-gradient-blue rounded-pill px-5 fw-semibold">Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

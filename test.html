@@ -1,0 +1,297 @@
+@extends('layouts.main')
+@section('title', 'Product Detail')
+
+@php
+    // Data Produk (Untuk mengisi elemen Frame 36, 39, 40)
+    $detailProduct = [
+        'name' => 'Logitech G Pro X Headset', 
+        'old_price' => '$129', 
+        'new_price' => '$99', 
+        'save' => 'Save 23%', 
+        'img_file' => 'product_logitech.png'
+    ];
+    // Data Produk Terkait (Frame 60)
+    $relatedProducts = [
+        ['name' => 'Logitech G Pro X Headset', 'old_price' => '$129', 'new_price' => '$99', 'save' => 'Save 23%', 'img_file' => 'product_logitech.png'],
+        ['name' => 'MSI Gaming Laptop i7 RTX 4060', 'old_price' => '$1,499', 'new_price' => '$1,299', 'save' => 'Save 23%', 'img_file' => 'product_msi.png'],
+        ['name' => 'Samsung Galaxy Tab S9', 'old_price' => '$799', 'new_price' => '$699', 'save' => 'Save 23%', 'img_file' => 'product_samsung.png']
+    ];
+@endphp
+
+{{-- ================================================= --}}
+{{-- 1. HEADER SECTION (@section('header')) --}}
+{{-- KODE INI SAMA PERSIS DENGAN YANG ADA DI HOME.BLADE.PHP --}}
+{{-- ================================================= --}}
+@section('header')
+    <style>
+        .header-wrapper {
+            width: 100%;
+            height: 90px; /* Lebih pendek untuk halaman detail */
+            padding-top: 20px; 
+            background: #FFFFFF;
+            border-bottom: 1px solid #eee;
+        }
+        .main-navbar {
+            width: 1280px;
+            max-width: 90%; 
+            margin: 0 auto; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        /* Style untuk Tombol Back/Kembali */
+        .back-icon {
+            /* Nilai Positioning Figma: left: 168px; top: 121px; */
+            position: relative;
+            width: 43px;
+            height: 43px;
+            left: 0;
+            top: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #717171;
+            border-radius: 9999px;
+            text-decoration: none;
+            z-index: 20;
+            /* Kita gunakan transform untuk menggeser sedikit ke kiri, meniru left: 168px */
+            transform: translateX(-50%); 
+        }
+    </style>
+    
+    <div class="header-wrapper">
+        
+        {{-- Frame 19: NAVBAR --}}
+        <div class="page-container main-navbar">
+            <img src="{{ asset('images/logo GigaGears.png') }}" alt="GIGAGEARS Logo" width="197" height="24">
+            
+            {{-- Frame 16: Links --}}
+            <div class="d-flex" style="gap: 71px; font-size:25px">
+                <div class="d-flex gap-5">
+                    <a href="/" style="color: #000000; text-decoration: none;">Home</a>
+                    <a href="/products" style="color: #067CC2; text-decoration: none;">Products</a>
+                    <a href="/#about-us-section" style="color: #000000; text-decoration: none;">About Us</a>
+                    <a href="/my-order" style="color: #000000; text-decoration: none;">My Order</a>
+                </div>
+            </div>
+
+            {{-- Frame 18: Profil Button --}}
+            <a href="/profile" class="d-flex align-items-center justify-content-center profile-btn" style="border: 1px solid #000000; border-radius: 5px; padding: 10px; width: 135px; height: 52px; text-decoration: none; color: #000;">
+                <div class="d-flex align-items-center" style="gap: 9px;">
+                    <span>Profil</span>
+                    <img src="{{ asset('images/logo foto profile.png') }}" alt="Profile" style="width: 32px; height: 32px; border-radius: 50%;">
+                </div>
+            </a>
+        </div>
+    </div>
+@endsection
+
+
+{{-- ================================================= --}}
+{{-- 2. KONTEN UTAMA (@section('content')) --}}
+{{-- ================================================= --}}
+@section('content')
+
+    {{-- Ikon Kembali (Posisi Absolut di dalam page-container main) --}}
+    <a href="/" class="back-icon" aria-label="Kembali ke Beranda">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="white" d="M10 19l-7-7 7-7 1.41 1.41L5.83 12l5.58 5.59z"/></svg>
+    </a>
+
+    {{-- Frame 74: PRODUCT DETAIL HEADER (Left: 88px, Top: 165px) --}}
+    <div class="d-flex justify-content-between" style="width: 100%; margin-top: 100px; gap: 50px;">
+        
+        {{-- Rectangle 8: Gambar Produk (Kanan) --}}
+        <div style="width: 40%; max-width: 496px; flex-shrink: 0;">
+            <img src="{{ asset('images/' . $detailProduct['img_file']) }}" alt="{{ $detailProduct['name'] }}" style="width: 100%; height: 463px; object-fit: cover;">
+        </div>
+
+        {{-- Frame 65: Deskripsi Singkat, Harga & Tombol (Kiri) --}}
+        <div class="d-flex flex-column" style="width: 60%; max-width: 448px; gap: 27px;">
+            
+            {{-- Logitech G Pro X Headset (Title - Frame 65) --}}
+            <h1 style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 55px; line-height: 72px; color: #000000; margin-top: 0;">
+                {{ $detailProduct['name'] }}
+            </h1>
+            
+            {{-- Frame 60 & 35: Harga & Save --}}
+            <div class="d-flex flex-column" style="gap: 9px;">
+                <div class="d-flex align-items-center gap-2">
+                    <span style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 24px; text-decoration: line-through; color: #787878;">{{ $detailProduct['old_price'] }}</span>
+                    <span style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 32px; color: #067CC2;">{{ $detailProduct['new_price'] }}</span>
+                    
+                    {{-- Frame 34: Save 23% --}}
+                    <div style="background: rgba(227, 54, 41, 0.27); border-radius: 999px; padding: 5px 10px; margin-left: 10px;">
+                        <span style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 18px; color: #E33629;">{{ $detailProduct['save'] }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            {{-- Frame 64: Color Options --}}
+            <div class="d-flex flex-column" style="gap: 14px;">
+                <div style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 22px;">Color</div>
+                {{-- Frame 63: Color Swatches --}}
+                <div class="d-flex gap-2">
+                    <div style="width: 42px; height: 42px; border: 1px solid #067CC2; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+                        <div style="width: 39px; height: 39px; background: #000000; border-radius: 50%;"></div>
+                    </div>
+                    <div style="width: 39px; height: 39px; background: #FFFFFF; border: 1px solid #000000; border-radius: 50%;"></div>
+                    <div style="width: 39px; height: 39px; background: rgba(36, 70, 91, 0.93); border-radius: 50%;"></div>
+                </div>
+            </div>
+
+            {{-- Frame 73: Tombol Buy Now & Add to Cart --}}
+            <div class="d-flex gap-2" style="width: 100%; margin-top: 10px;">
+                <a href="/checkout" style="width: 208px; height: 55px; background: rgba(6, 124, 194, 0.93); border-radius: 5px; display: flex; justify-content: center; align-items: center; font-family: 'Chakra Petch', sans-serif; font-weight: 500; font-size: 22px; color: #FFFFFF; text-decoration: none;">Buy Now</a>
+                <a href="#" style="width: 208px; height: 55px; border: 1px solid #067CC2; border-radius: 5px; display: flex; justify-content: center; align-items: center; font-family: 'Chakra Petch', sans-serif; font-weight: 500; font-size: 22px; color: #067CC2; text-decoration: none;">Add to Cart</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="height: 100px;"></div>
+
+    {{-- Frame 71: DESCRIPTION, SPECS, REVIEW WRAPPER --}}
+    <div class="d-flex flex-column" style="gap: 42px;">
+        
+        {{-- Frame 66: Product Description --}}
+        <div class="d-flex flex-column" style="gap: 20px;">
+            <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 26px; color: #000000;">Product Description (Detail)</h2>
+            <p style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 22px; line-height: 27px; color: #565656; text-align: justify;">
+                The Logitech G Pro X Gaming Headset is designed in collaboration with esports professionals, offering next-level communication and precision audio. With advanced 7.1 surround sound, durable build quality, and the powerful Blue VO!CE technology, this headset ensures you stay ahead in every game. Perfect for both casual and competitive gamers.
+            </p>
+        </div>
+
+        {{-- Frame 70: SPECS & REVIEW --}}
+        <div class="d-flex justify-content-between" style="gap: 50px;">
+            
+            {{-- Frame 67: Specifications --}}
+            <div class="d-flex flex-column" style="width: 50%; gap: 20px;">
+                <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 26px; color: #000000;">Specifications</h2>
+                <pre style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 22px; line-height: 27px; color: #565656; background: none; border: none; padding: 0;">
+Driver: Hybrid mesh PRO-G 50 mm
+Frequency Response: 20 Hz – 20 kHz
+Impedance: 35 Ohms
+Sensitivity: 91.7 dB SPL @ 1 mW & 1 cm
+Microphone: Detachable, Cardioid (Unidirectional)
+Connection Type: Wired (3.5 mm / USB sound card)
+Weight: 320 g (without cable)
+                </pre>
+            </div>
+
+            {{-- Frame 69: Overall Review --}}
+            <div class="d-flex flex-column align-items-center" style="width: 372px; gap: 5px;">
+                <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 26px; color: #000000;">Overall Review</h2>
+                
+                {{-- Frame 68: Stars --}}
+                <div class="d-flex align-items-center justify-content-center" style="height: 72px; gap: 3px;">
+                    <span style="color: #F8BD00; font-size: 40px;">★★★★☆</span>
+                </div>
+                
+                <h3 style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 36px; line-height: 47px; color: #067CC2;">4.8 / 5</h3>
+                
+                <p style="font-family: 'Montserrat', sans-serif; font-style: italic; font-weight: 500; font-size: 22px; line-height: 27px; text-align: center; color: #000000;">
+                    “Crisp sound and super comfortable. Perfect for long gaming sessions.” – Kevin T
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 100px;"></div>
+
+    {{-- Related Products (Title) --}}
+    <h2 style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 46px; color: #000000; margin-bottom: 30px;">Related Products</h2>
+
+    {{-- Frame 60: Product Cards DEALS (Related Products) --}}
+    <div class="d-flex justify-content-between" style="width: 100%; gap: 20px;">
+        @foreach ($relatedProducts as $product)
+            {{-- Setiap Kartu Produk --}}
+            <div class="d-flex flex-column align-items-start" style="flex: 1; gap: 9px;">
+                <div style="width: 100%; height: 338px; border-radius: 5px; display: flex; justify-content: center; align-items: center;">
+                    <img src="{{ asset('images/' . $product['img_file']) }}" alt="{{ $product['name'] }}" style="max-height: 100%;">
+                </div>
+                <h3 style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 32px; line-height: 42px; color: #000000; margin-top: 10px; margin-bottom: 5px;">
+                    {{ $product['name'] }}
+                </h3>
+                <div class="d-flex align-items-center gap-2">
+                    <span style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 24px; line-height: 29px; text-decoration: line-through; color: #787878;">
+                        {{ $product['old_price'] }}
+                    </span>
+                    <span style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 32px; color: #067CC2;">
+                        {{ $product['new_price'] }}
+                    </span>
+                    <div style="background: rgba(227, 54, 41, 0.27); border-radius: 999px; padding: 5px 10px;">
+                        <span style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 18px; color: #E33629;">
+                            {{ $product['save'] }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+    
+@endsection
+
+
+{{-- ================================================= --}}
+{{-- 3. FOOTER SECTION (@section('footer')) --}}
+{{-- ================================================= --}}
+@section('footer')
+    <style>
+        .main-footer {
+            background-image: linear-gradient(87.6deg, #FFFFFF 8.86%, rgba(78, 218, 254, 0.67) 32.51%, rgba(6, 124, 194, 0.93) 95.43%);
+            padding: 50px 0 20px 0;
+            position: relative;
+            z-index: 10;
+            top:25px;
+        }
+        .footer-title {
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: 700;
+            font-size: 22px;
+            line-height: 29px;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+    </style>
+    
+    <footer class="main-footer">
+        
+        <div class="page-container d-flex justify-content-between" style="gap: 197px;">
+            {{-- Frame 58: Logo dan Slogan --}}
+            <div class="d-flex flex-column" style="width: 343px; gap: 27px;">
+                <img src="{{ asset('images/logo GigaGears.png') }}" alt="GIGAGEARS Logo" width="263" height="32">
+                <p style="font-family: 'Chakra Petch', sans-serif; font-style: italic; font-weight: 500; font-size: 22px; line-height: 29px; color: #000000;">Empowering your digital lifestyle with the best tech and software.</p>
+            </div>
+
+            {{-- Frame 57: Quick Links, Support, Social Media --}}
+            <div class="d-flex" style="width: 740px; justify-content: space-between; gap: 155px;">
+                {{-- Quick Links --}}
+                <div class="d-flex flex-column" style="width: 121px; gap: 12px;">
+                    <div class="footer-title">Quick Links</div>
+                    <div class="d-flex flex-column">
+                        <a href="#about">Home</a><a href="/products">Products</a><a href="#">Categories</a><a href="/about-us">About Us</a><a href="#">Contact</a>
+                    </div>
+                </div>
+                {{-- Customer Support --}}
+                <div class="d-flex flex-column" style="width: 220px; gap: 12px;">
+                    <div class="footer-title">Customer Support</div>
+                    <div class="d-flex flex-column">
+                        <a href="#">Help Center</a><a href="#">FAQs</a><a href="#">Shipping & Delivery</a><a href="#">Return & Refund Policy</a>
+                    </div>
+                </div>
+                {{-- Social Media --}}
+                <div class="d-flex flex-column" style="width: 220px; gap: 12px;">
+                    <div class="footer-title">Social Media</div>
+                    <div class="d-flex flex-column">
+                        <a href="#">Facebook</a><a href="#">Instagram</a><a href="#">X [Twitter]</a><a href="#">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {{-- Copyright --}}
+        <div class="copyright page-container" style="font-weight: bold; font-size:22px; text-align: center; padding-top: 30px;">
+            © 2025 GigaGears. All Rights Reserved.
+        </div>
+    </footer>
+@endsection
